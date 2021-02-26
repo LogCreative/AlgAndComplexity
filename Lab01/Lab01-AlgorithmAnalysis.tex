@@ -39,6 +39,12 @@
 \makeatletter
 \renewenvironment{solution}[1][Solution] {\par\pushQED{\qed}\normalfont\topsep6\p@\@plus6\p@\relax\trivlist\item[\hskip\labelsep\bfseries#1\@addpunct{.}]\ignorespaces}{\popQED\endtrivlist\@endpefalse} \makeatother
 
+\providecommand{\limn}{\lim_{n\rightarrow \infty}}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.14}
+\usepgfplotslibrary{colorbrewer}
+
 \begin{document}
 \noindent
 
@@ -144,9 +150,16 @@ CS214-Algorithm and Complexity, Xiaofeng Gao, Spring 2021.}}
 
 \item For Alg.~\ref{Alg-quicksort}, how to modify the algorithm to achieve the same expected performance as the \textbf{average} case when the \textbf{worst} case happens?
 \end{enumerate} 
-%    \begin{solution}
-%       Uncomment this block to write your proof.
-%    \end{solution}
+\begin{solution}
+	\begin{enumerate}
+		\item Algorithm \ref{Alg-quicksort} -- QuickSort:
+		\begin{description}
+			\item[Best Case] 
+			\item[Average Case] 
+			\item[Worst Case]  
+		\end{description}
+	\end{enumerate}
+\end{solution}
 
 \item \textit{Growth Analysis.} Rank the following functions by order of growth with brief explanations: that is, find an arrangement $g_1, g_2, \ldots , g_{15}$ of the functions $g_1 = \Omega(g_2), g_2 = \Omega(g_3), \ldots, g_{14} = \Omega(g_{15})$.  Partition your list into equivalence classes such that functions $f(n)$ and $g(n)$ are in the same class if and only if $f(n) = \Theta(g(n))$. Use symbols ``$=$'' and ``$\prec$'' to order these functions appropriately. Here $\log n$ stands for $\ln n$.
 $$
@@ -156,9 +169,88 @@ $$
 	\log (n!) \quad & \quad n! \quad & \quad (2n)! \quad & \quad  n^{1/2} \quad & \quad n^2 \\
 \end{array}
 $$
-%    \begin{solution}
-%       Uncomment this block to write your proof.
-%    \end{solution}
+\begin{solution}
+	Arrangement:
+	\begin{equation*}
+		2^{2^n},2^{n^2},(2n)!,n!,4^{n},2^n,n^2,n\log n,\log (n!),n,2^{\log n},n^{1/2},\log n,\log \log n,1
+	\end{equation*}
+	Partition:
+	\begin{equation*}
+		\begin{aligned}
+			1\prec \log\log n\prec \log n\prec n^{1/2}\prec 2^{\log n}\prec n\prec \log (n!)\\= n\log n
+			\prec n^2 \prec 2^n \prec 4^{n}\prec n!\prec (2n)!\prec 2^{n^2}\prec 2^{2^n}
+		\end{aligned}
+	\end{equation*}
+	Along the proof, relations \eqref{eq:six} and \eqref{eq:seven} are considered as fundamentals. And Stirling's approximation is used:
+	\begin{equation*}
+		\limn \frac{n!}{\sqrt{2\pi n}\left(\frac{n}{e}\right)^n} = 1
+	\end{equation*}
+	L'H\^{o}pital's rule is used: 
+	\begin{equation*}
+		\limn f(n) = \limn g(n)=+\infty,g^\prime (n)\neq 0,\exists \limn \frac{f^\prime (n)}{g^\prime (n)}\Rightarrow\limn \frac{f(n)}{g(n)} = \limn \frac{f^\prime (n)}{g^\prime (n)}
+	\end{equation*}
+	The transformation rule of $\omega(\cdot)$ is used:
+	\begin{equation*}
+		g(n)\neq 0 \Rightarrow \frac{\omega(f(x))}{g(x)} = \omega \left(\frac{f(x)}{g(x)}\right)
+	\end{equation*}
+
+	\begin{tikzpicture}
+		\begin{semilogyaxis}[solid,
+		line width=0.7pt,
+		no markers,
+		legend pos={outer north east},
+		xmin={0},
+		xmax={20},
+		ymax={1e8},
+		height={8.5cm},
+		xlabel={$n$},
+		axis x line={middle},
+		axis y line={left},
+		width={14cm},
+		grid,samples=21,domain=1:20]
+		 \addplot+ [RdYlGn-O,domain=1:7,samples=8] {2^(2^x)};
+		 \addplot+ [RdYlGn-N,domain=1:7,samples=8] {2^(x^2)};
+		 \addplot+ [RdYlGn-M] {sqrt(2*3.14*2*x)*(2*x/2.71)^(2*x)};
+		 \addplot+ [RdYlGn-L] {sqrt(2*3.14*x)*(x/2.71)^x};
+		 \addplot+ [RdYlGn-K] {4^x};
+		 \addplot+ [RdYlGn-J] {2^x};
+		 \addplot+ [RdYlGn-I] {x^2};
+		 \addplot+ [RdYlGn-H] {x*ln(x)};
+		 \addplot+ [RdYlGn-G] {ln(sqrt(2*3.14*x)*(x/2.71)^x};
+		 \addplot+ [RdYlGn-F] {x};
+		 \addplot+ [RdYlGn-E] {2^(ln(x))};
+		 \addplot+ [RdYlGn-D] {sqrt(x)};
+		 \addplot+ [RdYlGn-C] {ln(x)};
+		 \addplot+ [RdYlGn-B] {ln(ln(x))};
+		%  \addplot+ [black] {1};
+		 \legend{$2^{2^n}$,$2^{n^2}$,$(2n)!$,$n!$,$4^{n}$,$2^n$,$n^2$,$n\log n$,$\log (n!)$,$n$,$2^{\log n}$,$n^{1/2}$,$\log n$,$\log \log n$}
+		\end{semilogyaxis}
+		\end{tikzpicture}
+
+	The proof is as follows:
+	\begin{align}
+		2^{2^n}=\omega(2^{n^2}) \Leftarrow &&\limn \frac{2^{2^n}}{2^{n^2}} &= \limn 2^{2^n-n^2} = \limn 2^{\omega(n^2)-n^2} = 2^\infty\\
+		2^{n^2}=\omega((2n)!) \Leftarrow&& \limn \frac{2^{n^2}}{(2n)!} &= \limn \frac{(2^n)^n}{\sqrt{2\pi(2n)}\left(\frac{n}{e}\right)^n}\nonumber\\
+		&& &=\limn \frac{1}{2\sqrt{\pi}}\left(e\frac{2^n}{n}\right)^n\cdot n^{-\frac{1}{2}} \nonumber \\
+		&& &= \limn \frac{1}{2\sqrt{\pi}}\left(e\frac{\omega (n^2)}{n}\right)^n\cdot n^{-\frac{1}{2}} \nonumber \\
+		&& &=\limn \frac{1}{2\sqrt{\pi}} e^n \omega\left(n^{n-\frac{1}{2}}\right) = \infty \\
+		(2n)!=\omega(n!) \Leftarrow&& \limn \frac{(2n)!}{n!} &= \limn\prod_{i=n+1}^{2n} i = \infty \\
+		n! = \omega(4^{n}) \Leftarrow&&\limn \frac{n!}{4^n}&=\limn \frac{\sqrt{2\pi n}\left(\frac{n}{e}\right)^n}{4^n}=\infty \\
+		4^n = \omega(2^n) \Leftarrow&& \limn \frac{4^n}{2^n} &= \limn 2^n = \infty \\
+		2^n = \omega(n^2) \Leftarrow&& \limn \frac{2^n}{n^2}&= \limn \frac{e^{n\log 2}}{n^2} \nonumber\\
+		&& &= \limn \frac{1+n\log 2+\frac{(n\log 2)^2}{2}+\frac{(n\log 2)^3}{6}+\omega ((n\log 2)^3)}{n^2} \nonumber\\
+		&& &= \limn \left[\alpha + \frac{n \log^3 2}{6} + \omega(n\log^3 2)\right]~(\alpha>0) = \infty\label{eq:six}\\
+		n^2 = \omega(n\log n) \Leftarrow&& \limn \frac{n^2}{n\log n}&=\limn \frac{n}{\log n} = \limn \frac{n^\prime}{(\log n)^\prime} = \limn \frac{1}{\frac{1}{n}} = \infty\label{eq:seven}\\
+		n\log n = \Theta(\log (n!)) \Leftarrow&& \limn \frac{n\log n}{\log (n!)} &= \limn \frac{n\log n}{\frac{1}{2}\log 2\pi n+n\log n-n} = 1\\
+		\log (n!) = \omega(n) \Leftarrow&& \limn \frac{\log (n!)}{n} &= \limn \left(\frac{\pi}{n}+\frac{\log n}{2n} + \log n - 1 \right)=\infty\\
+		n=\omega(2^{\log n}) \Leftarrow&& \limn \frac{n}{2^{\log n}}&=\limn \frac{n}{2^{\frac{\log_2 n}{\log_2 e}}} = \limn n^{1-\frac{1}{\log_2 e}}=\limn n^{0.31} = \infty\\
+		2^{\log n} = \omega(n^{1/2})\Leftarrow&& \limn \frac{2^{\log n}}{n^{1/2}}&=\limn n^{\frac{1}{\log_2 e}-\frac{1}{2}} = \limn n^{0.19} = \infty \\
+		n^{1/2} = \omega(\log n)\Leftarrow&& \limn \frac{n^{1/2}}{\log n}&= \limn \frac{\left(n^{1/2}\right)^\prime}{(\log n)^\prime} = \limn \frac{n^{1/2}}{2} = \infty\\
+		\log n = \omega (\log \log n) \Leftarrow&& \limn \frac{\log n}{\log \log n} &= \limn \frac{(\log n)^\prime}{(\log \log n)^\prime} = \limn \frac{1/n}{1/(n\log n)} = \infty \\
+		\log\log n = \omega (1) \Leftarrow && \limn \log \log n &= \infty
+	\end{align}
+
+\end{solution}
 
 
 \end{enumerate}
