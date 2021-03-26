@@ -30,6 +30,29 @@ int Greedy(int x[], int k, int n)
     Please write your Greedy function here.
     If you want to use sorting, please use the quickSort function above.
     */
+    quickSort(x,0,n);
+
+    int num_interval = 0;
+   
+    while(n){
+        int maxcov = 0;
+        int maxlabel = 0;
+        for(int i = 0; i < n ; ++i){
+            int cov = 1;
+            for(int j = i+1; x[j]<=x[i]+k && j<n; ++j)
+                ++cov;
+            if (cov >= maxcov){
+                maxcov = cov;
+                maxlabel = i;
+            }
+        }
+        for(int j = maxlabel + maxcov; j < n; ++j)
+            x[j - maxcov] = x[j];
+        n -= maxcov;
+        ++num_interval;
+    }
+
+    return num_interval;
 }
 
 int main()
