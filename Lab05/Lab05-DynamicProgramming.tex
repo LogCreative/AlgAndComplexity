@@ -88,7 +88,7 @@
 		\begin{enumerate}
 			\item Prove that if an optimal binary search tree $T$ ($ T $ has the smallest expected search cost) has a subtree $T^{\prime}$ containing keys $k_{i}, \ldots, k_{j},$ then this subtree $T^{\prime}$ must be optimal as well for the subproblem with keys $k_{i}, \ldots, k_{j}$ and dummy keys $d_{i-1}, \ldots, d_{j}$. 
 			\item We define $e[i, j]$ as the expected cost of searching an optimal binary search tree containing the keys $k_{i}, \ldots, k_{j} .$ Our goal is to compute $e[1, n]$. Write the state transition equation and pseudocode using \textbf{dynamic programming} to find
-			the minimum expected cost of a search in a given binary tree. (\textbf{Remark}: You may use $ w(i, j)=\sum_{l=i}^{j} p_{l}+\sum_{l=i-1}^{j} q_{l} $).
+			the minimum expected cost of a search in a given binary tree. (\textbf{Remark}: You may use $ w[i, j]=\sum_{l=i}^{j} p_{l}+\sum_{l=i-1}^{j} q_{l} $).
 			\item Implement your proposed algorithm in C/C++ and analyze the time complexity. ({\color{blue}The framework Code-OBST.cpp is attached on the course webpage}). Give the minimum search cost calculated by your algorithm. The test case is given as following:
 			\begin{table}[H]
 				\setlength{\abovecaptionskip}{0cm}
@@ -109,9 +109,174 @@
 		
 		\begin{enumerate}
 			\item \begin{proof}
+			\textbf{Prove by contradiction.} Suppose this subtree $T^\prime$ is not optimal, then there exists a subtree $T^{\prime\prime}$ is better than $T^\prime$ on expected search cost with keys $k_i,\cdots,k_j$ and dummy keys $d_{i-1},\cdots,d_j$. Then the expeceted search cost between the two subtrees has the following relationship:
+			\begin{equation}\label{eq:opt}
+				e^{\prime\prime}<e^\prime
+			\end{equation}
+			Assume the summation of the probability on the subtree is $P$. And The summation of search cost in the remaining part is $C$. Then the Eq. \eqref{eq:opt} follows:
+			\begin{equation*}
+				e^{\prime\prime}P+C<e^\prime P+C
+			\end{equation*}
+			which means that if $T^\prime$ is replaced by the optimal subtree $T^{\prime\prime}$, a better binary search tree could be contructed than $T$. The contradiction over the optimal of the original binary search tree shows that the subtree $T^\prime$ is optimal.
 			\end{proof}
-			\item \begin{solution}
+			\item \begin{solution} 
+			
+			Consider the root of the optimal binary search tree containing keys $k_i,\cdots,k_j$. If the root is $k_r(i\leq r\leq j)$, then according to the previous subproblem, the left subtree containing $k_i,\cdots,k_{r-1}$ and the right subtree containing $k_{r+1},\cdots, k_j$ are also the optimal binary search tree.
+
+			If $j=i-1$, the subtree only has one dummy key $d_{i-1}$, and the expected search cost is $e[i,i-1]=q_{i-1}$.
+
+			If $j\geq i$, because once one tree become a child, the search cost for every node will be increased by 1 and the expected cost could be increased by the summation of probability in the subtree. Then the expected search cost could be calculated recursively by calculating for every $i\leq r\leq j$:
+			\begin{align*}
+				e[i,j] &= p_r + (e[i,r-1]+w[i,r-1])+(e[r+1,j]+w[r+1,j])\\
+				&=e[i,r-1]+e[r+1,j]+w[i,j]
+			\end{align*}
+
+			As a result, the state transition equation could be stated as follows:
+			\begin{equation*}
+				e[i,j]=\left\{\begin{aligned}
+					&q_{i-1},&&j = i-1,\\
+					&\min_{i\leq r\leq j} e[i,r-1]+e[r+1,j]+w[i,j],&&j\geq i
+				\end{aligned}\right.
+			\end{equation*}
+
+			The algorithm is shown in Alg. \ref{alg:opt} and function \texttt{getExpectedCost}($i$,$j$).
+
+			\begin{function}[h]
+				\caption{getExpectedCost($i$,$j$)}
+				\KwData{start $i$, end $j$}
+				\KwOut{the expected cost $e[i,j]$}
+				\BlankLine
+				\lIf(){$e[i,j]$ is initialized}{\Return{$e[i,j]$}}
+				$r_{\text{min}}\leftarrow i, e_{\text{min}}\leftarrow \infty$\;
+				\For(){$r\leftarrow i$ to $j$}{
+					$e^\prime\leftarrow$ \getExpectedCost($i$,$r-1$) + \getExpectedCost($r+1,j$)+$w[i,j]$\;
+					\If{$e^\prime\leq e_{\text{min}}$}{
+						$r_{\text{min}}\leftarrow r$\;
+						$e_{\text{min}}\leftarrow e^\prime$\;
+					}
+				}
+				$root[i,j]\leftarrow r_\text{min},e[i,j]\leftarrow e_\text{min}$\;
+				\Return{$e_\text{min}$}\;
+			\end{function}
+			\begin{algorithm}[h]
+				\caption{Find the optimal binary search tree}
+				\label{alg:opt}
+				\KwIn{key probability $\{p_i\}_{i=1}^n$, dummy key probability $\{q_i\}_{i=0}^n$, input size $n$}
+				\KwOut{expected cost $e[1,n]$}
+				\BlankLine
+				Initialize $w[i,j]=\sum_{l=i}^jp_l+\sum_{l=i-1}^jq_l$\;
+				Initialize $e[i,i-1]=q_j$\;
+				Initialize $root[i,i-1]=i-1$\;
+				\getExpectedCost(1,$n$)
+			\end{algorithm}
+			% For the optimal binary search tree $T[i+1,j-1]$, consider inserting leftmost new nodes $k_i$/$d_{i-1}$ shown in Figure \ref{fig:lmi}. The new nodes could be either the child or the parent, depending on the overall cost.
+				
+			% \begin{figure}[H]
+			% 	\centering
+			% 	\subfigure[as a child]{\input{img/i.tex}}\hspace{3em}
+			% 	\subfigure[as a parent]{\input{img/ip.tex}}
+			% 	\caption{Insert the new node for the leftmost item}\label{fig:lmi}
+			% \end{figure}
+
+			% Assume $k_{i+1}$ is of cost $a_{i+1}$ in the original optimal binary search tree. And similar to the definition of $e[i,j]$, define the expected cost of the original subtree $T_L$ with the root of $k_{i+1}$ as:
+			% \begin{equation*}
+			% 	e_L = \frac{a_{k+1}p_{k+1}+(a_{k+1}+1)q_i+C}{\sum p_l + \sum q_l}
+			% \end{equation*}
+			% where $\sum$ sum up the nodes in the domain and $C$ is the overall cost of the right branch in the left subtree. Then calculate the expected cost of new subtree in both scenarios.
+			% \begin{description}
+			% 	\item[Case (a): as a child.]
+			% 	\begin{align*}
+			% 		e_{La} &= \frac{a_{k+1}p_{k+1}+(a_{k+1}+2)q_{i}+(a_{k+1}+1)p_{i}+(a_{k+1}+2)q_{i-1}+C}{\sum p_l + \sum q_l + p_i + q_{i-1}}\\
+			% 		&=\frac{e_L (\sum p_l + \sum q_l)+q_i+(a_{k+1}+1)p_{i}+(a_{k+1}+2)q_{i-1}}{\sum p_l + \sum q_l + p_i + q_{i-1}}
+			% 	\end{align*} 
+			% 	\item[Case (b): as a parent.]
+			% 	\begin{align*}
+			% 		e_{Lb} &= \frac{a_{k+1}p_i+(a_{k+1}+1)q_{i-1}+(e_L+1)(\sum p_l + \sum q_l)}{\sum p_l + \sum q_l + p_i + q_{i-1}}
+			% 	\end{align*} 
+			% \end{description}
+			% \begin{figure}[H]
+			% 	\centering
+			% 	\subfigure[as a child]{\input{img/j.tex}}\hspace{3em}
+			% 	\subfigure[as a parent]{\input{img/jp.tex}}
+			% 	\caption{Insert the new node for the rightmost item}
+			% \end{figure}
 			\end{solution}
+			\item The implementation is as follows:
+			\code{Code-OBST.cpp}{c++}
+
+			The time complexity is analyzed as follows:
+			\begin{description}
+				\item[Initialization.] The initalization of $w,e,root$ costs $O(n^2)$.
+				\item[Calculation.] The recurrence of the time complexity is:
+				\begin{align*}
+					T[i,i-1] &= O(1)\\
+					T[i,j] &= \sum_{i\leq r\leq j}(T[i,r-1] + T[r+1,j] + O(1))
+				\end{align*} 
+
+				A recurrence tree could be drawn in Figure \ref{fig:tc}. The diagonal is first calculated and every step in the figure is $O(1)$.
+				\begin{figure}[h]
+					\centering
+					\input{img/tc.tex}
+					\caption{Time Complexity Analysis}
+					\label{fig:tc}
+				\end{figure}
+
+				So, the time complexity is $(n^2+n)/2 = O(n^2)$.
+			\end{description}
+			As a result, the time complexity comes to $O(n^2)$.
+
+			And the running result is:
+			\begin{tcolorbox}
+The cost of the optimal binary search tree is: 3.12
+			\end{tcolorbox}
+
+			\item The continued running result is:
+			\begin{tcolorbox}
+The structure of the optimal binary search tree is:\\
+k5 is the root\\
+k2 is the left child of k5\\
+k1 is the left child of k2\\
+d0 is the left child of k1\\
+d1 is the right child of k1\\
+k3 is the right child of k2\\
+d2 is the left child of k3\\
+k4 is the right child of k3\\
+d3 is the left child of k4\\
+d4 is the right child of k4\\
+k7 is the right child of k5\\
+k6 is the left child of k7\\
+d5 is the left child of k6\\
+d6 is the right child of k6\\
+d7 is the right child of k7
+			\end{tcolorbox}
+
+			According to the output, the binary search tree could be drawn in Fig. \ref{fig:bst}.
+
+			\begin{figure}[h]
+				\centering
+				\input{img/bst.tex}
+				\caption{The optimal binary search tree}
+				\label{fig:bst}
+			\end{figure}
+
+			The drawing process could be described in function \texttt{ConstructOptimalBst($i$,$j$,$rt$,$loc$)}, which is in the mid order by recurrence.
+			\begin{function}[h]
+				\caption{ConstructOptimalBst($i$,$j$,$rt$,$loc$)}
+				\KwData{start $i$, end $j$, the previous root $rt$ and the relative location to the previous root $loc$}
+				\BlankLine
+				\lIf(){$j==m i-1$}{$dummy\leftarrow true$}
+				\lElse(){$dummy\leftarrow false$}
+				Output the (dummy) key\;
+				\Switch(){$loc$}{
+					\lCase{0}{Output root}
+					\lCase(){1}{Output left of $rt$}
+					\lCase(){2}{Output right of $rt$}
+				}
+				\lIf{$dummy=true$}{\Return{}}
+				\ConstructOptimalBst($i$,$root[i,j]-1$,$root[i][j]$,-1)\;
+				\ConstructOptimalBst($root[i,j]+1$,$j$,$root[i][j]$,1)\;
+			\end{function}
+
 		\end{enumerate}
 		
 		\item \textit{Dynamic Time Warping Distance.} \textbf{DTW} stretches the series along the time axis in a dynamic way over different
@@ -144,8 +309,36 @@
 					\item Calculating the average costs $O(m+n)$. 
 				\end{enumerate}
 				So, it is of $O(mn)$ time complexity.
-				\item 
+				\item The implementation with window constraint is as follows:
+				\code{Code-DTWW.cpp}{c++}
+
+				When $w=0$, the result is:
+				\begin{tcolorbox}
+					52.2
+
+					18.8
+				\end{tcolorbox}
+
+				When $w=1$, the result is:
+				\begin{tcolorbox}
+					52.2
+
+					16.9
+				\end{tcolorbox}
 			\end{enumerate}
+
+			Note that the traverse methods in the two subproblems are slightly different, shown in Figure \ref{fig:trav}.
+			
+			\begin{figure}[H]
+				\centering
+				\subfigure[snake traverse]{\input{img/OTW.tex}}
+				\hspace{1em}
+				\subfigure[pivot traverse]{\input{img/OTWW.tex}}
+				\caption{Different traverse methods}
+				\label{fig:trav}
+			\end{figure}
+
+			The first subproblem without the window constraint uses a snake approach to make turns when meeting the boundaries. The second subproblem with the window constraint uses a pivot coordinate (shown in \textcolor{blue}{blue line}) to record the starting point on each diagonal and stop when the absolute value constraint or the border is met.
 		\end{solution}
 		
 	\end{enumerate}

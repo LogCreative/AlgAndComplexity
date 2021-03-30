@@ -11,12 +11,13 @@ i.e., When we reach the point (i, j) in the matrix, the next position is to choo
 For the sake of simplicity, when the cost is equal, the priority of the selection is (i-1,j-1), (i,j-1), and (i-1,j) in order.
 4.Calculate th time normalized distance. We define it as the average cost of the selected points.
 */
+
 #define VOID -1
 using namespace std;
 
 int minChoice(vector<vector<int>>& DTW, int& i, int& j) {
-    if (DTW[i - 1][j - 1] <= DTW[i][j - 1]) {                               // DTW[i - 1][j - 1] never VOID
-        if (DTW[i - 1][j - 1] <= DTW[i - 1][j]) { i = i - 1; j = j - 1; }      
+    if (DTW[i - 1][j - 1] != VOID && DTW[i - 1][j - 1] <= DTW[i][j - 1]) {
+        if (DTW[i - 1][j] == VOID || DTW[i - 1][j - 1] <= DTW[i - 1][j]) { i = i - 1; j = j - 1; }
         else i = i - 1;
     }
     else if (DTW[i][j - 1] != VOID && DTW[i][j - 1] <= DTW[i - 1][j]) j = j - 1;
@@ -32,42 +33,24 @@ double distance(vector<int> x, vector<int> y, int w) {
     // Use the given state transition function to fill in the cost matrix. -- diagonal calculation
     // Clear the left and bottom border first.
     DTW[0][0] = abs(x[0] - y[0]);
-    for (int i = 1; i <= w; ++i)
+    for (int i = 1; i <= (w>n-1?n-1:w); ++i)
         DTW[i][0] = abs(x[i] - y[0]) + DTW[i - 1][0];
-    for (int j = 1; j <= w; ++j)
+    for (int j = 1; j <= (w>m-1?m-1:w); ++j)
         DTW[0][j] = abs(x[0] - y[j]) + DTW[0][j - 1];
-    // traverse diagonally as a snake
-    int i = 1, j = 1;
-    int dir = 1;
-    bool flag = false;
-    while (i != n && j != m) {
-        int tmp_i = i, tmp_j = j;
-        DTW[i][j] = abs(x[i] - y[j]) + minChoice(DTW, tmp_i, tmp_j);
-        // window contraint ?
-        if (!flag && (i - j == w || j - i == w - 1)) {
-            ++j;
-            dir *= -1; flag = true;
+    //traverse only in a diagonal way
+    int pi = 1, pj = 1;
+    while (pi <= n - 1 && pj <= m - 1) {
+        for (int i = pi, j = pj; abs(i - j) <= w && i <= n - 1 && i>=1 && j <= m - 1 && j>=1; ++i, --j) {
+            int temp_i = i, temp_j = j;
+            DTW[i][j] = abs(x[i] - y[j]) + minChoice(DTW, temp_i, temp_j);
         }
-        // border contraint
-        else if (!flag && (j == 1 || j == m - 1)) { 
-            if (i + 1 == n) ++j;
-            else ++i;
-            dir *= -1; flag = true;
-        }
-        else if (!flag && (i == 1 || i == n - 1)) {
-            if (j + 1 == m) ++i;
-            else ++j; 
-            dir *= -1; flag = true; 
-        } else {
-            i = i + dir; j = j - dir; flag = false; 
-        }
+        if (abs(pj + 1 - pi) <= w && pj + 1 <= m - 1) ++pj;
+        else ++pi;
     }
-    int tmp_i = n - 1, tmp_j = m - 1;
-    DTW[n - 1][m - 1] = abs(x[n - 1] - y[m - 1]) + minChoice(DTW, tmp_i, tmp_j);
 
     vector<int> d;
     //Identify the warping path. (n - 1,m - 1) -> (0,0)
-    i = n - 1; j = m - 1;
+    int i = n - 1, j = m - 1;
     while (true) {
         d.push_back(DTW[i][j]);
         if (i == 0 || j == 0) break;
@@ -82,7 +65,7 @@ double distance(vector<int> x, vector<int> y, int w) {
 
 int main(){
 	vector<int> X,Y;
-    int w = 3;
+    int w = 1;
 	//test case 1
 	X = {37,37,38,42,25,21,22,33,27,19,31,21,44,46,28};
 	Y = {37,38,42,25,21,22,33,27,19,31,21,44,46,28,28};
