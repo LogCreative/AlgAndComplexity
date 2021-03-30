@@ -38,6 +38,36 @@
 \makeatletter
 \renewenvironment{solution}[1][Solution] {\par\pushQED{\qed}\normalfont\topsep6\p@\@plus6\p@\relax\trivlist\item[\hskip\labelsep\bfseries#1\@addpunct{.}]\ignorespaces}{\popQED\endtrivlist\@endpefalse} \makeatother
 
+\usepackage{tikz}
+\usepackage{caption}
+\usepackage{listings}
+% listings
+\definecolor{grey}{rgb}{0.8,0.8,0.8}
+\definecolor{darkgreen}{rgb}{0,0.3,0}
+\definecolor{darkblue}{rgb}{0,0,0.3}
+\lstset{%
+    numbers=left, %行号
+    numberstyle=\tiny\color{grey},
+    showstringspaces=false,
+    showspaces=false,%
+    tabsize=4,%
+    frame=shadowbox,%
+    basicstyle={\ttfamily\scriptsize},%
+    keywordstyle=\color{blue!80!black}\bfseries,%
+    identifierstyle=,%
+    commentstyle=\color{green!50!blue}\itshape,%
+    stringstyle=\color{green!50!black},%
+    rulesepcolor=\color{gray!20!white},
+    breaklines,
+    columns=flexible,
+    extendedchars=false,
+    %mathescape=true,
+}
+\providecommand{\code}[2]{\lstinputlisting[language=#2,caption=\href{run:#1}{\ttfamily #1}]{#1}}
+\providecommand{\img}[1]{\includegraphics[width=0.88\textwidth]{#1}}
+\usepackage{tcolorbox}
+\usepackage{array}
+
 \begin{document}
 	\noindent
 	
@@ -76,9 +106,13 @@
 			\end{table}
 			\item Please draw the structure of the optimal binary search tree in the test case, and explain the drawing process.   
 		\end{enumerate}
-		%    \begin{solution}
-		%        Uncomment this block to write your solution.
-		%    \end{solution}
+		
+		\begin{enumerate}
+			\item \begin{proof}
+			\end{proof}
+			\item \begin{solution}
+			\end{solution}
+		\end{enumerate}
 		
 		\item \textit{Dynamic Time Warping Distance.} \textbf{DTW} stretches the series along the time axis in a dynamic way over different
 		portions to enable more effective matching. Let $D T W(i, j)$ be the optimal distance between the first $i$ and first $j$ elements of two time series $\bar{X}=\left(x_{1} \ldots x_{n}\right)$ and $\bar{Y}=\left(y_{1} \ldots y_{m}\right),$ respectively. Note that the two time series are of lengths $n$ and $m$, which may not be the same. Then, the value of $D T W(i, j)$ is defined recursively as follows:
@@ -90,9 +124,29 @@
 			\item Implement the proposed DTW algorithm in C/C++ and analyze the time complexity of your implementation. ({\color{blue}The framework Code-DTW.cpp is attached on the course webpage}). Two test cases have been given in the source code. 
 			\item The window constraint imposes a minimum level $w$ of positional alignment between matched elements. The window constraint requires that $DTW(i, j)$ be computed only when $|i-j| \leq w$. Modify your code to add a window constraint and give the results of $ w=0 $ and $ w=1 $ on the two test cases. 
 		\end{enumerate}
-		%    \begin{solution}
-		%        Uncomment this block to write your solution.
-		%    \end{solution}
+		\begin{solution}
+			\begin{enumerate}
+				\item The implementation code.
+				\code{Code-DTW.cpp}{c++}
+
+				The result is:
+				\begin{tcolorbox}
+					0
+
+					8.66667
+				\end{tcolorbox}
+
+				The time complexity of every step is:
+				\begin{enumerate}
+					\item Initalization is regraded as $O(1)$.
+					\item Clearing the border costs $O(m+n)$, and traversing in a diagonal way costs $O(mn)$.
+					\item Finding the path costs $O(m+n)$.
+					\item Calculating the average costs $O(m+n)$. 
+				\end{enumerate}
+				So, it is of $O(mn)$ time complexity.
+				\item 
+			\end{enumerate}
+		\end{solution}
 		
 	\end{enumerate}
 	
