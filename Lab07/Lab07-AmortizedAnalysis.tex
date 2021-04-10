@@ -1,5 +1,4 @@
 \documentclass[12pt,a4paper]{article}
-\usepackage{ctex}
 \usepackage{amsmath,amscd,amsbsy,amssymb,latexsym,url,bm,amsthm}
 \usepackage{epsfig,graphicx,subfigure}
 \usepackage{enumitem,balance}
@@ -39,6 +38,8 @@
 \makeatletter
 \renewenvironment{solution}[1][Solution] {\par\pushQED{\qed}\normalfont\topsep6\p@\@plus6\p@\relax\trivlist\item[\hskip\labelsep\bfseries#1\@addpunct{.}]\ignorespaces}{\popQED\endtrivlist\@endpefalse} \makeatother
 
+\usepackage{tikz}
+
 \begin{document}
 \noindent
 
@@ -52,12 +53,45 @@ CS214-Algorithm and Complexity, Xiaofeng Gao \& Lei Wang, Spring 2021.}}
 \footnotesize{\color{blue}$*$ Name: Zilong Li  \quad Student ID: 518070910095 \quad Email: logcreative-lzl@sjtu.edu.cn}
 \end{center}
 \begin{enumerate}
-	\item Suppose we perform a sequence of n operations on a data structure in which the $i$ th 		operation costs $i$ if $i$ is an exact power of 2, and 1 otherwise. Use an accounting method to determine the amortized cost per operation.
+	\item Suppose we perform a sequence of $n$ operations on a data structure in which the $i$ th operation costs $i$ if $i$ is an exact power of 2, and 1 otherwise. Use an accounting method to determine the amortized cost per operation.
+	
+	\begin{solution}
+		% For the $i$-th operation, an amortized cost $\hat{C}_i=\$3$ is charged.
+		% \begin{itemize}
+		% 	\item \$1 pays for itself.
+		% 	\item \$2 is stored for later cost expansion, \$1 for paying one of the recent $\frac{i}{2}$ items, \$1 for paying one of the old $\frac{i}{2}$ items.
+		% \end{itemize}
+		Define $C_i$ as the cost of the $i$th operation,
+		\begin{equation*}
+			C_i=\left\{\begin{aligned}
+				&i, &&\text{if }i\text{ is an exact power of 2},\\
+				&1, &&\text{otherwise}
+			\end{aligned}\right.
+		\end{equation*}
+		\begin{description}
+			\item[Case 1: $i$ is not the power of 2.] an amortized cost $\hat{C_i}=\$3$ is charged:
+			\begin{itemize}
+				\item \$1 pays for itself;
+				\item \$2 is stored for later cost expanding, \$1 \$1 for paying one of the recent $\frac{i}{2}$ items, \$1 for paying one of the old $\frac{i}{2}$ items.
+			\end{itemize} 
+			\item[Case 2: $i$ is the power of 2.]  an amortized cost $\hat{C_i}=\$2$ is charged, in order not to have leftouts.
 
-	\item Consider an ordinary \textbf{binary min-heap} data structure with $n$ elements supporting
-the instructions \textsc{Insert} and \textsc{Extract-Min} in $O(\log n)$ worst-case time. Give a
-potential function $\Phi$ such that the amortized cost of \textsc{Insert} is $O(\log n)$ and the
-amortized cost of \textsc{Extract-Min} is $O(1)$, and show that it works.
+		\end{description}
+
+		\begin{figure}[h]
+			\centering
+			\input{img/p1.tex}
+		\end{figure}
+	
+		Thus,
+		\begin{equation*}
+			T(n) = \sum_{i=1}^n C_i \leq \sum_{i=1}^n \hat{C_i} = 3n - \lfloor \log_2 n \rfloor
+		\end{equation*}
+	\end{solution}
+
+	\item Consider an ordinary \textbf{binary min-heap} data structure with $n$ elements supporting the instructions \textsc{Insert} and \textsc{Extract-Min} in $O(\log n)$ worst-case time. Give a potential function $\Phi$ such that the amortized cost of \textsc{Insert} is $O(\log n)$ and the amortized cost of \textsc{Extract-Min} is $O(1)$, and show that it works.
+	
+	% Extract-min find and delete min
 	
 	\item Assume we have a set of arrays $A_0, A_1, A_2,\cdots$, where the $i^{th}$ array $A_i$ has a length of $2^i$. Whenever an element is inserted into the arrays, we always intend to insert it into $A_0$. If $A_0$ is full then we pop the element in $A_0$ off and insert it with the new element into $A_{1}$. (Thus, if $A_{i}$ is already full, we recursively pop all its members off and insert them with the elements popped from $A_0,...,A_{i-1}$ and the new element into $A_{i+1}$ until we find an empty array to store the elements.) An illustrative example is shown in Figure \ref{Fig-MultiArray}. Inserting or popping an element take $O(1)$ time.
 
@@ -70,9 +104,55 @@ amortized cost of \textsc{Extract-Min} is $O(1)$, and show that it works.
 
     \begin{enumerate}
         \item In the worst case, how long does it take to add a new element into the set of arrays containing $n$ elements?
+        \begin{solution}
+			The worst case comes to that $n$ is the power of 2, assumming it to be $n=2^i$. All elements from $A_0, \cdots, A_{i-1}$ has to be popped and pushed into $A_i$. The inserted element will be inserted into $A_i$ as well.
+			\begin{equation*}
+				\Omega(n) = 2(1+\cdots + 2^{i-1})+1 = 2^{i+1}-1
+			\end{equation*}
+		\end{solution}
         \item Prove that the amortized cost of adding an element is $O(\log n)$ by \emph{Aggregation Analysis}.
+        \begin{solution}
+			Enumerate the cost of different $n$:
+
+			\begin{table}[h]
+				\centering
+				\begin{tabular}{l|cccccccc}
+					\hline
+					$i$ 			& 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 \\
+					$C_i$(new pop) 	& 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
+					$C_i$(pop+push)	&   & 2 &   & 6 &   & 2 &   & 14\\
+					\hline
+					$i$ 			& 9 & 10& 11& 12& 13& 14& 15& 16\\
+					$C_i$(new pop) 	& 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
+					$C_i$(pop+push)	&   & 2 &   & 6 &   & 2 &   & 30\\
+					\hline
+				\end{tabular}
+			\end{table}
+
+			Denote $T(n)$ as the sum of operations for inserting $n$ elements. The recurrence of $T(n)$ is:
+			\begin{align*}
+				T(1) &= 1\\
+				T(2^i-1) &= 2T(2^{i-1}-1) + \Omega(2^{i-1})\\
+				T(2^i) &= T(2^{i}-1) + \Omega(2^i)
+			\end{align*}
+
+			Because the worst case comes to $n=2^i$, the aggregation analysis will provide the upper bound reflected by the case of $\frac{T(2^i)}{2^i}$.
+
+			\begin{align*}
+				T(2^i) &= 2^{i+1}-1 + T(2^i-1) \\
+					&= 2^{i+1} - 1 + 2T(2^{i-1}-1) + \Omega(2^{i-1})\\
+					&= 2^{i+1} - 1 + 2^{i-1}T(1) + 2^{i-2}\Omega(2^1) + \cdots + 2^1\Omega(2^{i-2}) + \Omega(2^{i-1})\\
+					&= 2^{i+1} - 1 + 2^{i-1} + 2^i - 2^{i-2} + 2^i - 2^{i-3} + \cdots + 2^i - 1\\
+					&= 2^{i+1} +(i-1)2^i
+			\end{align*}
+
+			By \emph{Aggregation Analysis}, the amortized cost of adding an element is
+			\begin{equation*}
+				\frac{T(2^i)}{2^i} = i+1 = \log_2 n + 1 = O(\log n)
+			\end{equation*}
+		\end{solution}
         \item If each array $A_i$ is required to be sorted but elements in different arrays have no relationship with each other, how long does it take in the worst case to search an element in the arrays containing $n$ elements? 
-\item What is the amortized cost of adding an element in the case of (c) if the comparison between two elements also takes $O(1)$ time?
+		\item What is the amortized cost of adding an element in the case of (c) if the comparison between two elements also takes $O(1)$ time?
     \end{enumerate}
 	
 \end{enumerate}
