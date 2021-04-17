@@ -40,6 +40,31 @@
 
 \usepackage{tikz}
 \usepackage{tcolorbox}
+\usepackage{listings}
+\definecolor{grey}{rgb}{0.8,0.8,0.8}
+\definecolor{darkgreen}{rgb}{0,0.3,0}
+\definecolor{darkblue}{rgb}{0,0,0.3}
+\lstset{%
+    numbers=left, %行号
+    numberstyle=\tiny\color{grey},
+    showstringspaces=false,
+    showspaces=false,%
+    tabsize=4,%
+    frame=shadowbox,%
+    basicstyle={\ttfamily\scriptsize},%
+    keywordstyle=\color{blue!80!black}\bfseries,%
+    identifierstyle=,%
+    commentstyle=\color{green!50!blue}\itshape,%
+    stringstyle=\color{green!50!black},%
+    rulesepcolor=\color{gray!20!white},
+    breaklines,
+    columns=flexible,
+    extendedchars=false,
+    %mathescape=true,
+}
+\usepackage{multicol}
+\setlength{\columnsep}{30pt}
+
 
 \begin{document}
 \noindent
@@ -150,10 +175,38 @@ CS214-Algorithm and Complexity, Xiaofeng Gao \& Lei Wang, Spring 2021.}}
             \end{tcolorbox}
         \end{solution}
     	\item Visualize the above selected Strongly Connected Components for this graph $G$. Use the $Gephi$ or other software you preferred to draw the graph. {\color{blue}(If you feel that the data provided in ``SCC.in'' is not beautiful, you can also generate your own data with more vertices and edges than $G$ and draw an additional graph. Notice that results of your visualization will be taken into the consideration of Best Lab.)}
+    	\begin{solution}
+            The visualization using Gephi is shown in Figure \ref{fig:gephi}.
+            \begin{figure}[h]
+                \centering
+                \includegraphics[width=0.4\textwidth]{img/ZilongLi1.png}
+                \caption{Using Gephi}
+                \label{fig:gephi}
+            \end{figure}
+
+            Additionally, the project that I completed in the Principles and Practice of Problem Solving course is also used to visualize the graph. GraphGenDecomp program visualize the Strong Connected Components (SCC) and all edges in Figure \ref{fig:ggd}. You can get more information about this program on \href{https://github.com/LogCreative/GraphGenDecomp/blob/master/report/GraphGenDecomp.pdf}{GraphGenDecomp on GitHub}. Basically, it uses spirial funciton to organize nodes into a centralized form for every sub-graph.
+            \begin{figure}[h]
+                \subfigure[SCC only]{\includegraphics[width=0.5\textwidth]{img/ZilongLi2.png}}
+                \subfigure[with crossing edges]{\includegraphics[width=0.5\textwidth]{img/ZilongLi3.png}}
+                \caption{Using \href{https://github.com/LogCreative/GraphGenDecomp}{GraphGenDecomp}}
+                \label{fig:ggd}
+            \end{figure}
+            
+        \end{solution}
     \end{enumerate}	
 \end{enumerate}
 
-
+\begin{appendix}
+\section{Code for Problem 4}
+\fbox{\texttt{SCC.cpp}} is the main code for counting and getting the strong connected components.
+\begin{multicols}{2}
+\lstinputlisting[language=c++]{SCC.cpp}
+\end{multicols}
+\fbox{\texttt{datapre.py}} is the data preprocessing code to adapt Gephi and GraphGenDecomp.
+\begin{multicols}{2}
+\lstinputlisting[language=python]{datapre.py}
+\end{multicols}
+\end{appendix}
 
 \textbf{Remark:} Please include your .pdf, .tex, .cpp files for uploading with standard file names.
 \newpage
