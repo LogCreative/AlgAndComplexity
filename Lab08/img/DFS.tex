@@ -1,0 +1,36 @@
+\begin{tikzpicture}
+\tikzstyle{rect}=[minimum width=1cm,minimum height=1cm,draw];
+\tikzstyle{block}=[rect,fill=black];
+\tikzstyle{visit}=[rect,fill=gray!20];
+\draw[help lines]  (-2,1) grid (3,-4);
+\node [block] at (-0.5,0.5) {};
+\node [block] at (-0.5,-1.5) {};
+\node [block] at (0.5,-2.5) {};
+\node [block] at (1.5,-1.5) {};
+\node [block] at (1.5,-0.5) {};
+\node [block] at (2.5,-3.5) {};
+\node [block] at (-1.5,-3.5) {};
+\node at (-1.5,1.5) {A};
+\node at (-0.5,1.5) {B};
+\node at (0.5,1.5) {C};
+\node at (1.5,1.5) {D};
+\node at (2.5,1.5) {E};
+\node at (-2.5,0.5) {A};
+\node at (-2.5,-0.5) {B};
+\node at (-2.5,-1.5) {C};
+\node at (-2.5,-2.5) {D};
+\node at (-2.5,-3.5) {E};
+
+\node [visit,font=\bfseries\color{red},draw=red,fill=red!20] at (-1.5,0.5) {1};
+\node [visit] at (-1.5,-0.5) {2};
+\node [visit] at (-0.5,-0.5) {3};
+\node [visit] at (0.5,-0.5) {4};
+\node [visit,fill opacity=0.3] at (0.5,-1.5) {5};
+\node [visit] at (0.5,0.5) {6};
+\node [visit] at (1.5,0.5) {7};
+\node [visit] at (2.5,0.5) {8};
+\node [visit] at (2.5,-0.5) {9};
+\node [visit] at (2.5,-1.5) {10};
+\node [visit] at (2.5,-2.5) {11};
+\node [visit,font=\bfseries\color{red},draw=red,fill=red!20] at (1.5,-2.5) {12};
+\end{tikzpicture}

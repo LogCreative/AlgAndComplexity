@@ -1,0 +1,16 @@
+\begin{tikzpicture}
+\tikzstyle{rect}=[minimum width=1cm,minimum height=1cm,draw];
+\tikzstyle{block}=[rect,fill=black];
+\tikzstyle{visit}=[rect,fill=gray!20];
+
+\node [visit] (v2) at (-2,0.5) {3};
+\node [visit] (v1) at (-1,0.5) {4};
+\node [above of=v1] {$d$=2};
+\node [above of=v2] {$d$=2};
+
+\node [rect,opacity=0.5] (v3) at (0,0.5) {5};
+\node [rect,opacity=0.5] (v4) at (1,0.5) {6};
+\node [above of=v3] {$d$=3};
+\draw[->] (v2) -- (-2,-1) -- (0,-1) -- (v3);
+\node at (-1,-1.5) {$++d$};
+\end{tikzpicture}
