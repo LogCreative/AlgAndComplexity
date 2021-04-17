@@ -35,7 +35,8 @@ public:
         visited = vector<bool>(n, false);
         visiting = vector<int>();
         for (int i = 0; i < n; ++i)
-            dfs(i);
+            if(!visited[i])
+                dfs(i);
         return visiting;
     }
     int SCC(vector<int> order) {

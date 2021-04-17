@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.10) (preloaded format=pdflatex 2020.10.17)  17 APR 2021 23:54
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.10) (preloaded format=pdflatex 2020.10.17)  18 APR 2021 04:01
 entering extended mode
 **./Lab08-GraphExploration.tex
 (Lab08-GraphExploration.tex
@@ -674,7 +674,7 @@ Package rerunfilecheck Info: File `Lab08-GraphExploration.out' has not changed.
 Here is how much of TeX's memory you used:
  20716 strings out of 480236
  394219 string characters out of 2890433
- 701650 words of memory out of 3000000
+ 701649 words of memory out of 3000000
  36815 multiletter control sequences out of 15000+200000
  549702 words of font info for 90 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
