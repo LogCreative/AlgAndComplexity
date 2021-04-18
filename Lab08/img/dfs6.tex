@@ -1,0 +1,13 @@
+\begin{tikzpicture}
+\tikzstyle{blackdot}=[circle,scale=0.3,fill];
+\node [blackdot,red] (v2) at (-0.5,0.5) {};
+\node [blackdot,red] (v1) at (-1.5,-1) {};
+\node [blackdot,red] (v3) at (0.5,-1) {};
+\draw  (v1) edge[red,bend left] (v2);
+\draw  (v2) edge[red,bend left,thick] (v1);
+\draw  (v3) edge[red,thick] (v2);
+\draw  (v1) edge[red] (v3);
+\draw  (v2) edge[loop, looseness=20,red,thick] (v2);
+\node [blackdot,red] (v4) at (-0.5,-0.5) {};
+\draw  (v3) edge[red,thick] (v4);
+\end{tikzpicture}

@@ -1,7 +1,7 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.10) (preloaded format=pdflatex 2020.10.17)  18 APR 2021 05:49
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.10) (preloaded format=pdflatex 2020.10.17)  19 APR 2021 00:40
 entering extended mode
-**./Lab08-GraphExploration.tex
-(Lab08-GraphExploration.tex
+**./Lab08-ZilongLi.tex
+(Lab08-ZilongLi.tex
 LaTeX2e <2020-10-01> patch level 1
 L3 programming layer <2020-10-05> xparse <2020-03-03> ("C:\Program Files\MiKTeX\tex/latex/base\article.cls"
 Document Class: article 2020/04/10 v1.4m Standard LaTeX document class
@@ -657,8 +657,8 @@ Package: multicol 2019/12/09 v1.8y multicolumn formatting (FMi)
 File: l3backend-pdftex.def 2020-09-24 L3 backend support: PDF output (pdfTeX)
 \l__kernel_color_stack_int=\count329
 \l__pdf_internal_box=\box128
-) (Lab08-GraphExploration.aux)
-\openout1 = `Lab08-GraphExploration.aux'.
+) (Lab08-ZilongLi.aux)
+\openout1 = `Lab08-ZilongLi.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 69.
 LaTeX Font Info:    ... okay on input line 69.
@@ -706,9 +706,9 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 LaTeX Info: Redefining \ref on input line 69.
 LaTeX Info: Redefining \pageref on input line 69.
 LaTeX Info: Redefining \nameref on input line 69.
- (Lab08-GraphExploration.out) (Lab08-GraphExploration.out)
+ (Lab08-ZilongLi.out) (Lab08-ZilongLi.out)
 \@outlinefile=\write6
-\openout6 = `Lab08-GraphExploration.out'.
+\openout6 = `Lab08-ZilongLi.out'.
 
 \c@lstlisting=\count337
 LaTeX Font Info:    Trying to load font information for U+msa on input line 77.
@@ -735,23 +735,48 @@ LaTeX Font Info:    Font shape `U/lasy/b/n' in size <8> not available
 (Font)              Font shape `U/lasy/m/n' tried instead on input line 84.
 LaTeX Font Info:    Font shape `U/lasy/b/n' in size <6> not available
 (Font)              Font shape `U/lasy/m/n' tried instead on input line 84.
-<Fig-Maze.pdf, id=11, 608.2725pt x 560.0925pt>
+ (img/te.tex
+Missing character: There is no ; in font nullfont!
+) [1
+
+{C:/Users/lizil/AppData/Local/MiKTeX/pdftex/config/pdftex.map}] (img/td.tex
+Missing character: There is no ; in font nullfont!
+) [2] (img/dfs1.tex
+Missing character: There is no ; in font nullfont!
+) (img/dfs2.tex
+Missing character: There is no ; in font nullfont!
+) (img/dfs27.tex
+Missing character: There is no ; in font nullfont!
+) (img/dfs28.tex
+Missing character: There is no ; in font nullfont!
+) (img/dfs3.tex
+Missing character: There is no ; in font nullfont!
+) (img/dfs4.tex
+Missing character: There is no ; in font nullfont!
+) (img/dfs5.tex
+Missing character: There is no ; in font nullfont!
+) (img/dfs6.tex
+Missing character: There is no ; in font nullfont!
+) (img/dfs7.tex
+Missing character: There is no ; in font nullfont!
+) (img/dfs8.tex
+Missing character: There is no ; in font nullfont!
+)
+<Fig-Maze.pdf, id=53, 608.2725pt x 560.0925pt>
 File: Fig-Maze.pdf Graphic file (type pdf)
 <use Fig-Maze.pdf>
-Package pdftex.def Info: Fig-Maze.pdf  used on input line 98.
+Package pdftex.def Info: Fig-Maze.pdf  used on input line 291.
 (pdftex.def)             Requested size: 227.64894pt x 209.6154pt.
- [1
-
-{C:/Users/lizil/AppData/Local/MiKTeX/pdftex/config/pdftex.map} <./Fig-Maze.pdf>] (img/DFS.tex
+ [3] [4] (img/DFS.tex
 Missing character: There is no ; in font nullfont!
 Missing character: There is no ; in font nullfont!
 Missing character: There is no ; in font nullfont!
-) (img/BFS.tex
+) [5 <./Fig-Maze.pdf>] (img/BFS.tex
 Missing character: There is no ; in font nullfont!
 Missing character: There is no ; in font nullfont!
 Missing character: There is no ; in font nullfont!
-) [2]
-Overfull \hbox (14.88788pt too wide) in paragraph at lines 147--148
+)
+Overfull \hbox (14.88788pt too wide) in paragraph at lines 340--341
 []\OT1/cmr/m/n/12 DFS could reach ev-ery con-nected node,
  []
 
@@ -759,60 +784,63 @@ Overfull \hbox (14.88788pt too wide) in paragraph at lines 147--148
 Missing character: There is no ; in font nullfont!
 Missing character: There is no ; in font nullfont!
 Missing character: There is no ; in font nullfont!
-) (SCC.out)
-<img/ZilongLi1.png, id=43, 1027.84pt x 1027.84pt>
+)
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[6] (SCC.out)
+<img/ZilongLi1.png, id=137, 1027.84pt x 1027.84pt>
 File: img/ZilongLi1.png Graphic file (type png)
 <use img/ZilongLi1.png>
-Package pdftex.def Info: img/ZilongLi1.png  used on input line 182.
+Package pdftex.def Info: img/ZilongLi1.png  used on input line 375.
 (pdftex.def)             Requested size: 202.3529pt x 202.34923pt.
+<img/ZilongLi2.png, id=141, 388.45125pt x 370.38374pt>
+File: img/ZilongLi2.png Graphic file (type png)
+<use img/ZilongLi2.png>
+Package pdftex.def Info: img/ZilongLi2.png  used on input line 382.
+(pdftex.def)             Requested size: 252.94499pt x 241.1874pt.
+<img/ZilongLi3.png, id=142, 388.45125pt x 369.63094pt>
+File: img/ZilongLi3.png Graphic file (type png)
+<use img/ZilongLi3.png>
+Package pdftex.def Info: img/ZilongLi3.png  used on input line 383.
+(pdftex.def)             Requested size: 252.94499pt x 240.69717pt.
+
+Overfull \hbox (2.61107pt too wide) in paragraph at lines 382--384
+[][] [][] 
+ []
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<img/ZilongLi2.png, id=47, 519.44063pt x 495.35063pt>
-File: img/ZilongLi2.png Graphic file (type png)
-<use img/ZilongLi2.png>
-Package pdftex.def Info: img/ZilongLi2.png  used on input line 189.
-(pdftex.def)             Requested size: 252.94499pt x 241.21225pt.
-<img/ZilongLi3.png, id=48, 517.935pt x 496.10344pt>
-File: img/ZilongLi3.png Graphic file (type png)
-<use img/ZilongLi3.png>
-Package pdftex.def Info: img/ZilongLi3.png  used on input line 190.
-(pdftex.def)             Requested size: 252.94499pt x 242.28282pt.
-
-Overfull \hbox (2.61107pt too wide) in paragraph at lines 189--191
-[][] [][] 
- []
-
-[3] [4 <./img/ZilongLi1.png> <./img/ZilongLi2.png> <./img/ZilongLi3.png>] ("C:\Program Files\MiKTeX\tex/latex/listings\lstlang1.sty"
+[7 <./img/ZilongLi1.png>] ("C:\Program Files\MiKTeX\tex/latex/listings\lstlang1.sty"
 File: lstlang1.sty 2020/03/24 1.8d listings language file
 ) ("C:\Program Files\MiKTeX\tex/latex/listings\lstlang1.sty"
 File: lstlang1.sty 2020/03/24 1.8d listings language file
 ) ("C:\Program Files\MiKTeX\tex/latex/listings\lstmisc.sty"
 File: lstmisc.sty 2020/03/24 1.8d (Carsten Heinz)
 )
-Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on input line 203.
+Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on input line 396.
  (SCC.cpp
 LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <8> not available
 (Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 1.
-) ("C:\Program Files\MiKTeX\tex/latex/listings\lstlang1.sty"
+ [8 <./img/ZilongLi2.png> <./img/ZilongLi3.png>]) ("C:\Program Files\MiKTeX\tex/latex/listings\lstlang1.sty"
 File: lstlang1.sty 2020/03/24 1.8d listings language file
-) (datapre.py) [5] [6] (Lab08-GraphExploration.aux)
-Package rerunfilecheck Info: File `Lab08-GraphExploration.out' has not changed.
+) (datapre.py) [9] (Lab08-ZilongLi.aux)
+Package rerunfilecheck Info: File `Lab08-ZilongLi.out' has not changed.
 (rerunfilecheck)             Checksum: 10714108CCB7DB4E8B7054438509B566;54.
  ) 
 Here is how much of TeX's memory you used:
- 22772 strings out of 480236
- 422645 string characters out of 2890433
- 2012783 words of memory out of 3000000
- 38698 multiletter control sequences out of 15000+200000
- 550207 words of font info for 93 fonts, out of 3000000 for 9000
+ 22952 strings out of 480236
+ 425668 string characters out of 2890433
+ 1335975 words of memory out of 3000000
+ 38784 multiletter control sequences out of 15000+200000
+ 551591 words of font info for 98 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 77i,8n,88p,576b,1165s stack positions out of 5000i,500n,10000p,200000b,50000s
-<C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmitt10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt12.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt8.pfb>
-Output written on Lab08-GraphExploration.pdf (6 pages, 1286519 bytes).
+ 77i,19n,88p,770b,1430s stack positions out of 5000i,500n,10000p,200000b,50000s
+<C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx8.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmitt10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi6.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy6.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt12.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt8.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on Lab08-ZilongLi.pdf (9 pages, 1666744 bytes).
 PDF statistics:
- 277 PDF objects out of 1000 (max. 8388607)
- 153 named destinations out of 1000 (max. 500000)
+ 397 PDF objects out of 1000 (max. 8388607)
+ 209 named destinations out of 1000 (max. 500000)
  41 words of extra memory for PDF output out of 10000 (max. 10000000)
 

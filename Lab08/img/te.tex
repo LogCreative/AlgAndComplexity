@@ -1,0 +1,16 @@
+\begin{tikzpicture}[node distance=9pt]
+\tikzstyle{blackdot}=[circle,scale=0.3,fill];
+
+\draw (0,-0.5) node [blackdot] (v0) {} -- (1,-1)node [blackdot] (v1) {};
+\node[above of=v0] {$v_0$};
+\node[right of=v1] {$v_1$};
+\node[draw,circle,minimum width=16pt] (v2) at (1,1) {};
+\draw  (v2) edge (v1);
+\draw  (v0) edge node[above] {$e$} (v1);
+\draw (-1.5,0) node[blackdot] (vn) {} edge[dashed] (v0);
+\node[above of=vn] {$v_n$};
+
+\draw[dashed]  plot[smooth, tension=.7] coordinates {(v1) (0.5,-2.5) (-1.5,-2.5) (-2.5,-1) (vn)};
+\draw  (vn) edge (v2);
+\draw  (vn) edge[draw=none] node[above] {$e^\prime$} (v0);
+\end{tikzpicture}
