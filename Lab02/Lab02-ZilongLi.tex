@@ -47,6 +47,13 @@
 
 \usepackage{codeblock}
 \usepackage{tikz}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins}
+\tcbsubskin{mycross}{empty}{frame code={%
+    \draw[line width=1pt] (frame.south west)--(frame.north east);
+    \draw[line width=1pt] (frame.north west)--(frame.south east);},
+    skin first=mycross,skin middle=mycross,skin last=mycross 
+}
 
 \begin{document}
 \noindent
@@ -161,11 +168,18 @@ Can we use the Master Theorem to solve the recurrence above? Please explain your
         &=(\log_2 n + 1)O(n\log n)-O(n\log 2)\frac{\log_2 n(\log_2 n+1)}{2}\label{minus}\\
         &= O(n\log^2 n)\nonumber
     \end{align}
-    \item \textbf{Yes, at least under this condition.} The recurrence here merely satisfies the condition of $d=\log_b a=1$ in the Master Theorem, just plug in the formula with the logarithm followed we could get:
+    \item \par
+    \begin{equation*}
+        \forall \epsilon >0, \lim_{n\rightarrow \infty}\frac{n\log n}{n^{1+\epsilon}} =\lim_{n\rightarrow \infty} \frac{\log n}{n^\epsilon} = 0 \Rightarrow n\log n =O(n^{1+\epsilon})
+    \end{equation*}
+    No precise bound to describe.
+    \begin{tcolorbox}[skin=mycross]
+    \textbf{Yes, at least under this condition.} The recurrence here merely satisfies the condition of $d=\log_b a=1$ in the Master Theorem, just plug in the formula with the logarithm followed we could get:
     \begin{equation*}
         T(n) = O((n\log n)\log n) = O(n\log^2 n)
     \end{equation*}
     Though there is a logarithm in the residual, as is shown in Eq. \eqref{minus}, the logarithm will take apart the division into subtraction, where the subtraction part will not change the complexity of the overall algorithm (the subtrahend is always smaller than the minuend, otherwise the algorithm could have a negative amount of time complexity). As we ignore the the logarithm part, the remaining thing is similar to the Master Theorem, for example, in this condition, the exponential part outside the logarithm is crossed out in Eq. \eqref{cross}.
+\end{tcolorbox}
 \end{enumerate}
 \end{solution}
 \item

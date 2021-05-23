@@ -39,6 +39,13 @@
 \renewenvironment{solution}[1][Solution] {\par\pushQED{\qed}\normalfont\topsep6\p@\@plus6\p@\relax\trivlist\item[\hskip\labelsep\bfseries#1\@addpunct{.}]\ignorespaces}{\popQED\endtrivlist\@endpefalse} \makeatother
 
 \usepackage{tikz}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins}
+\tcbsubskin{mycross}{empty}{frame code={%
+    \draw[line width=1pt] (frame.south west)--(frame.north east);
+    \draw[line width=1pt] (frame.north west)--(frame.south east);},
+    skin first=mycross,skin middle=mycross,skin last=mycross 
+}
 
 \begin{document}
 \noindent
@@ -109,7 +116,7 @@ CS214-Algorithm and Complexity, Xiaofeng Gao \& Lei Wang, Spring 2021.}}
 		The state transition diagram is shown in Figure \ref{fig:std}.
 		\begin{figure}[h]
 			\centering
-			\input{img/tmtd.tex}
+			\input{tmtd.tex}
 			\caption{The state transition diagram}
 			\label{fig:std}
 		\end{figure}
@@ -225,6 +232,14 @@ CS214-Algorithm and Complexity, Xiaofeng Gao \& Lei Wang, Spring 2021.}}
 				Does there exist a shortest route of total distance $\leq k$ that visits each city exactly once and returns to the origin city.
 			\end{quotation}
 			the \textbf{certificate} is:
+
+		A permutation of $n$ cities.
+		
+		and the \textbf{certifier} is:
+
+		A program checks that the permutation contains each city exactly once and returns to the original city, and that the length of the route $D\leq k$.
+			\begin{tcolorbox}[skin=mycross]
+			the \textbf{certificate} is:
 			\begin{quotation}
 				A shortest route that visits each city exactly once and returns to the origin city.
 			\end{quotation} 
@@ -232,6 +247,8 @@ CS214-Algorithm and Complexity, Xiaofeng Gao \& Lei Wang, Spring 2021.}}
 			\begin{quotation}
 				Check that the shortest route is of distance smaller than $k$.
 			\end{quotation}
+		\end{tcolorbox}
+		
 		\end{solution}
 	    
 	    \item

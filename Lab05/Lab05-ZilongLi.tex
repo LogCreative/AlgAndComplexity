@@ -65,8 +65,14 @@
 }
 \providecommand{\code}[2]{\lstinputlisting[language=#2,caption=\href{run:#1}{\ttfamily #1}]{#1}}
 \providecommand{\img}[1]{\includegraphics[width=0.88\textwidth]{#1}}
-\usepackage{tcolorbox}
 \usepackage{array}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins}
+\tcbsubskin{mycross}{empty}{frame code={%
+    \draw[line width=1pt] (frame.south west)--(frame.north east);
+    \draw[line width=1pt] (frame.north west)--(frame.south east);},
+    skin first=mycross,skin middle=mycross,skin last=mycross 
+}
 
 \begin{document}
 	\noindent
@@ -320,7 +326,7 @@ d7 is the right child of k7
 				\end{tcolorbox}
 
 				When $w=1$, the result is:
-				\begin{tcolorbox}
+				\begin{tcolorbox}[skin=mycross]
 					52.2
 
 					16.9

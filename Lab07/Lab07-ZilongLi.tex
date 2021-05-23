@@ -40,6 +40,14 @@
 
 \usepackage{tikz}
 \usepackage{multicol}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins}
+\tcbsubskin{mycross}{empty}{frame code={%
+    \draw[line width=1pt] (frame.south west)--(frame.north east);
+    \draw[line width=1pt] (frame.north west)--(frame.south east);},
+    skin first=mycross,skin middle=mycross,skin last=mycross 
+}
+\usepackage{float}
 
 \begin{document}
 \noindent
@@ -228,8 +236,13 @@ CS214-Algorithm and Complexity, Xiaofeng Gao \& Lei Wang, Spring 2021.}}
         \item If each array $A_i$ is required to be sorted but elements in different arrays have no relationship with each other, how long does it take in the worst case to search an element in the arrays containing $n$ elements? 
     
 		\begin{solution}
+			Binary Search in each $A_i$.
+			\begin{equation*}
+				T(n) = 1+2+\cdots+\log(n+1)-1 = \frac{1}{2}\log(n+1)(\log(n+1)-1) = O(\log^2 n)
+			\end{equation*}
+			\begin{tcolorbox}[skin=mycross]
 			If the array is sorted, then the search algorithm is as follows:
-			\begin{algorithm}[h]
+			\begin{algorithm}[H]
 				\caption{The searching algorithm for sorted arrays}
 				\KwIn{set of arrays $A_0,A_1,\cdots, A_i$, the element $x$ to be searched}
 				\KwOut{the searching result}
@@ -258,6 +271,8 @@ CS214-Algorithm and Complexity, Xiaofeng Gao \& Lei Wang, Spring 2021.}}
 			\begin{equation*}
 				T^\prime(n) = 2i + n = 2(\log_2(n+1)-1) + n = \Omega(n)
 			\end{equation*}
+			
+		\end{tcolorbox}
 		\end{solution}
 
 		\item What is the amortized cost of adding an element in the case of (c) if the comparison between two elements also takes $O(1)$ time?
@@ -269,9 +284,7 @@ CS214-Algorithm and Complexity, Xiaofeng Gao \& Lei Wang, Spring 2021.}}
 			% 	\hat{C_i}^\prime = \hat{C_i} + O(n\log n) = n\log n + \log_2 n + 1 = O(n\log n)
 			% \end{equation*}
 			
-			Enumerate the cost of different $n$ with sorting, where sorting requires $Q(n)=O(n\log n)$ time complexity:
-
-			\begin{table}[h]
+			\begin{table}[H]
 				\centering
 				\begin{tabular}{l|cccccccc}
 					\hline
@@ -287,6 +300,14 @@ CS214-Algorithm and Complexity, Xiaofeng Gao \& Lei Wang, Spring 2021.}}
 					\hline
 				\end{tabular}
 			\end{table}
+
+
+			Like Merge Sort. $O(\log n)$. Bit-Flip.
+
+			\begin{tcolorbox}[skin=mycross]
+			Enumerate the cost of different $n$ with sorting, where sorting requires $Q(n)=O(n\log n)$ time complexity:
+
+			
 
 			Because it starts from $A_0$, every pop will lead to a sort operation over the influnced elements. Let $S^\prime$ be the sum of new cost.
 
@@ -315,6 +336,7 @@ CS214-Algorithm and Complexity, Xiaofeng Gao \& Lei Wang, Spring 2021.}}
 				\hat{C_i}^\prime = \frac{S^\prime(n)}{n}= \frac{S^\prime(2^i)}{2^i} &= \hat{C_i} +\frac{(2^i-1)O(i^2)}{2^i} \\&= O(\log n) + O((\log n)^2)\\&=O((\log n)^2)
 			\end{align*}
 
+		\end{tcolorbox}
 		\end{solution}
     \end{enumerate}
 	

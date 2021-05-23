@@ -39,6 +39,15 @@
 \renewenvironment{solution}[1][Solution] {\par\pushQED{\qed}\normalfont\topsep6\p@\@plus6\p@\relax\trivlist\item[\hskip\labelsep\bfseries#1\@addpunct{.}]\ignorespaces}{\popQED\endtrivlist\@endpefalse} \makeatother
 
 \usepackage{tikz}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins}
+\tcbsubskin{mycross}{empty}{frame code={%
+    \draw[line width=1pt] (frame.south west)--(frame.north east);
+    \draw[line width=1pt] (frame.north west)--(frame.south east);},
+    skin first=mycross,skin middle=mycross,skin last=mycross 
+}
+\usepackage{float}
+
 
 \begin{document}
 \noindent
@@ -201,6 +210,9 @@ CS214-Algorithm and Complexity, Xiaofeng Gao \& Lei Wang, Spring 2021.}}
 		\end{solution}
 	    \item Describe an efficient algorithm for updating the transitive closure as edges are inserted into the graph. For any sequence of $m$ insertions, your algorithm should run in total time $\sum_{i=1}^m t_i=O(V^3)$, where $t_i$ is the time to update the transitive closure upon inserting the $i$th edge. Prove that your algorithm attains this time bound.
 	    \begin{solution}
+			One by one insertion.
+
+			\begin{tcolorbox}[skin=mycross]
 			The following algorithm also has the time complexity of $O(V^3)$ and it is not nessesary to consider adding edges one by one. The transitive closure $G^*=(V,E^*)$ is constructed by putting edge $(i,j)$ into $E^*$ if and only if $t_{ij}^{(n)}=1$.
 			\begin{equation*}
 				t_{ij}^{(0)} = \left\{\begin{aligned}
@@ -213,7 +225,7 @@ CS214-Algorithm and Complexity, Xiaofeng Gao \& Lei Wang, Spring 2021.}}
 				t_{ij}^{(k)}=t_{ij}^{(k-1)}\vee \left(t_{ik}^{(k-1)}\land t_{kj}^{(k-1)}\right)
 			\end{equation*}
 			This process will be terminated when $k>|V|$. And like Folyd-Warshall's Algorithm, all the path with the length under or equal to $|V|$ (assume all the path is weighing 1) is accessed. The proof is similar by replacing min as $\vee$ and + as $\land$. 
-			\begin{algorithm}[h]
+			\begin{algorithm}[H]
 				\caption{\textsc{Transitive-Closure}}
 				\label{alg:tc}
 				\KwIn{Graph $G=(V,E)$, $E$ has already contained $m$ newly added edges}
@@ -241,6 +253,7 @@ CS214-Algorithm and Complexity, Xiaofeng Gao \& Lei Wang, Spring 2021.}}
 			\end{algorithm}
 
 			This algorithm \ref{alg:tc} has time bound of $\Theta(V^3)$.
+		\end{tcolorbox}
 		\end{solution}
 	\end{enumerate}
 
@@ -276,7 +289,9 @@ CS214-Algorithm and Complexity, Xiaofeng Gao \& Lei Wang, Spring 2021.}}
 				\label{fig:undir}
 			\end{figure}
 
-			Thus, the vertex magnitude of the reduced graph is $2|V|$, which is the same level as $O(|V|)$. The edge magnitude is at most $2|E|+2|E|$. Because the split on the vertex is only trigged when there is an edge between the two vertices. Then, the edge has the same level as $O(|E|)$.
+			Thus, the vertex magnitude of the reduced graph is $2|V|$, which is the same level as $O(|V|)$. The edge magnitude is at most \begin{tcolorbox}[skin=mycross]
+				$2|E|+2|E|$
+			\end{tcolorbox}. Because the split on the vertex is only trigged when there is an edge between the two vertices. Then, the edge has the same level as $O(|E|)$.
 
 			% As for the undirected graph, the above method fails to perform. However, because the capacity constraint for every vertex is equal to the same constant. Thus, plug two artifical vertices into the graph to constraint the 
 		\end{solution}
@@ -294,7 +309,11 @@ CS214-Algorithm and Complexity, Xiaofeng Gao \& Lei Wang, Spring 2021.}}
 				Determine whether the maximum flow is $m$\;
 			\end{algorithm} 
 			
-			The time complexity of Algorithm \ref{alg:sep} is $O(2|V|\cdot 4|E|\cdot 1)=O((2n)^2\cdot 4\times 2n(n+1))=O(n^4)$.
+			$O(mn^2)$
+			
+			\begin{tcolorbox}[skin=mycross]
+				The time complexity of Algorithm \ref{alg:sep} is $O(2|V|\cdot 4|E|\cdot 1)=O((2n)^2\cdot 4\times 2n(n+1))=O(n^4)$.
+			\end{tcolorbox}
 
 			\begin{figure}[h]
 				\centering

@@ -38,6 +38,14 @@
 \makeatletter
 \renewenvironment{solution}[1][Solution] {\par\pushQED{\qed}\normalfont\topsep6\p@\@plus6\p@\relax\trivlist\item[\hskip\labelsep\bfseries#1\@addpunct{.}]\ignorespaces}{\popQED\endtrivlist\@endpefalse} \makeatother
 
+\usepackage{tcolorbox}
+\tcbuselibrary{skins}
+\tcbsubskin{mycross}{empty}{frame code={%
+    \draw[line width=1pt] (frame.south west)--(frame.north east);
+    \draw[line width=1pt] (frame.north west)--(frame.south east);},
+    skin first=mycross,skin middle=mycross,skin last=mycross 
+}
+
 \begin{document}
 
 \noindent
@@ -124,8 +132,11 @@ CS214-Algorithm and Complexity, Xiaofeng Gao, Spring 2021.}}
 			\end{tabular}
 		\end{table}
 		\begin{solution}
+			Sort the weight in an decreasing order first, then apply the algorithm.
+		\begin{tcolorbox}[skin=mycross]
+		
 			Check the number of tasks $N_t(A)$ whose deadline is earlier or equal to $t$ in the task set $A$, shown in Table \ref{tab:ct}.
-			\begin{table}[h]
+			\begin{table}[H]
 			\centering
 			\caption{Checking Table}
 			\label{tab:ct}
@@ -152,7 +163,9 @@ CS214-Algorithm and Complexity, Xiaofeng Gao, Spring 2021.}}
 			\begin{equation*}
 				50+60=110
 			\end{equation*}
-		\end{solution}
+		
+		\end{tcolorbox}
+	\end{solution}
         \item Show how to determine in time $O(|A|)$ whether or not a given set $A$ of tasks is independent. (\textbf{Hint}: You can use the lemma of equivalence given in class)
 		\begin{solution}
 			By the lemma of equivalence, to determine whether or not a given set $A$ of tasks is independent, just to calculate whether:
