@@ -1,0 +1,50 @@
+\documentclass[tikz]{standalone}
+\usetikzlibrary {positioning,shapes.misc}
+\begin{document}
+\begin{tikzpicture}[node distance=1cm]
+\tikzstyle{dc} = [rounded rectangle,draw=gray,yshift=-0.5cm];
+\tikzstyle{task} = [circle,draw=red!50!black!50,top color=white,bottom color=red!50!black!20];
+\node[dc] (DC3) at (0,0) {\begin{tikzpicture}\node[task] at (0,0) {tB1};
+\node[task] at (1,0) {tB2};
+\node[task] at (2,0) {tA1};
+\end{tikzpicture}};
+\node[dc,below of=DC3] (DC2) {\begin{tikzpicture}\node[task] at (0,0) {tC3};
+\end{tikzpicture}};
+\node[dc,below of=DC2] (DC5) {\begin{tikzpicture}\node[task] at (0,0) {tD5};
+\end{tikzpicture}};
+\node[dc,below of=DC5] (DC8) {\begin{tikzpicture}\node[task] at (0,0) {tE1};
+\node[task] at (1,0) {tE3};
+\end{tikzpicture}};
+\node[dc,below of=DC8] (DC4) {\begin{tikzpicture}\node[task] at (0,0) {tE2};
+\node[task] at (1,0) {tC1};
+\end{tikzpicture}};
+\node[dc,below of=DC4] (DC6) {\begin{tikzpicture}\node[task] at (0,0) {tE4};
+\node[task] at (1,0) {tD2};
+\node[task] at (2,0) {tD3};
+\node[task] at (3,0) {tF5};
+\node[task] at (4,0) {tF7};
+\end{tikzpicture}};
+\node[dc,below of=DC6] (DC11) {\begin{tikzpicture}\node[task] at (0,0) {tE5};
+\node[task] at (1,0) {tE6};
+\end{tikzpicture}};
+\node[dc,below of=DC11] (DC9) {\begin{tikzpicture}\node[task] at (0,0) {tF1};
+\node[task] at (1,0) {tA2};
+\end{tikzpicture}};
+\node[dc,below of=DC9] (DC13) {\begin{tikzpicture}\node[task] at (0,0) {tF4};
+\node[task] at (1,0) {tF6};
+\node[task] at (2,0) {tC2};
+\node[task] at (3,0) {tD1};
+\end{tikzpicture}};
+\node[dc,below of=DC13] (DC12) {\begin{tikzpicture}\node[task] at (0,0) {tF8};
+\node[task] at (1,0) {tF9};
+\node[task] at (2,0) {tD4};
+\node[task] at (3,0) {};
+\end{tikzpicture}};
+\node[dc,below of=DC12] (DC1) {\begin{tikzpicture}\node[task] at (0,0) {tF2};
+\node[task] at (1,0) {};
+\end{tikzpicture}};
+\node[dc,below of=DC1] (DC7) {\begin{tikzpicture}\node[task] at (0,0) {tF3};
+\node[task] at (1,0) {};
+\end{tikzpicture}};
+\end{tikzpicture}
+\end{document}
