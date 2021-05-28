@@ -1,7 +1,7 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.10) (preloaded format=pdflatex 2020.10.17)  28 MAY 2021 11:18
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.10) (preloaded format=pdflatex 2020.10.17)  28 MAY 2021 16:37
 entering extended mode
-**./iter3.tex
-(iter3.tex
+**./naive.tex
+(naive.tex
 LaTeX2e <2020-10-01> patch level 1
 L3 programming layer <2020-10-05> xparse <2020-03-03> ("C:\Program Files\MiKTeX\tex/latex/standalone\standalone.cls"
 Document Class: standalone 2018/03/26 v1.3a Class to compile TeX sub-files standalone
@@ -251,13 +251,18 @@ File: pgfmodulematrix.code.tex 2020/10/01 v3.1.6a (3.1.6a)
 File: tikzlibrarytopaths.code.tex 2020/10/01 v3.1.6a (3.1.6a)
 )))
 \sa@box=\box58
-) ("C:\Program Files\MiKTeX\tex/latex/l3backend\l3backend-pdftex.def"
+) ("C:\Program Files\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibrarypositioning.code.tex"
+File: tikzlibrarypositioning.code.tex 2020/10/01 v3.1.6a (3.1.6a)
+) ("C:\Program Files\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibraryshapes.misc.code.tex"
+File: tikzlibraryshapes.misc.code.tex 2020/10/01 v3.1.6a (3.1.6a)
+ ("C:\Program Files\MiKTeX\tex/generic/pgf/libraries/shapes\pgflibraryshapes.misc.code.tex"
+File: pgflibraryshapes.misc.code.tex 2020/10/01 v3.1.6a (3.1.6a)
+)) ("C:\Program Files\MiKTeX\tex/latex/l3backend\l3backend-pdftex.def"
 File: l3backend-pdftex.def 2020-09-24 L3 backend support: PDF output (pdfTeX)
 \l__kernel_color_stack_int=\count273
 \l__pdf_internal_box=\box59
-)
-No file iter3.aux.
-\openout1 = `iter3.aux'.
+) (naive.aux)
+\openout1 = `naive.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 2.
 LaTeX Font Info:    ... okay on input line 2.
@@ -273,7 +278,7 @@ LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 2.
 LaTeX Font Info:    ... okay on input line 2.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 2.
 LaTeX Font Info:    ... okay on input line 2.
-("C:\Program Files\MiKTeX\tex/context/base/mkii\supp-pdf.mkii"
+ ("C:\Program Files\MiKTeX\tex/context/base/mkii\supp-pdf.mkii"
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count274
 \scratchdimen=\dimen191
@@ -289,30 +294,24 @@ LaTeX Font Info:    ... okay on input line 2.
 ) ("C:\Program Files\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-base.sty"
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
-) ("C:\Program Files\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibrarypositioning.code.tex"
-File: tikzlibrarypositioning.code.tex 2020/10/01 v3.1.6a (3.1.6a)
-) ("C:\Program Files\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibraryshapes.misc.code.tex"
-File: tikzlibraryshapes.misc.code.tex 2020/10/01 v3.1.6a (3.1.6a)
- ("C:\Program Files\MiKTeX\tex/generic/pgf/libraries/shapes\pgflibraryshapes.misc.code.tex"
-File: pgflibraryshapes.misc.code.tex 2020/10/01 v3.1.6a (3.1.6a)
-))
+)
 Missing character: There is no ; in font nullfont!
 Missing character: There is no ; in font nullfont!
  [1
 
-{C:/Users/lizil/AppData/Local/MiKTeX/pdftex/config/pdftex.map}] (iter3.aux) ) 
+{C:/Users/lizil/AppData/Local/MiKTeX/pdftex/config/pdftex.map}] (naive.aux) ) 
 Here is how much of TeX's memory you used:
- 12497 strings out of 480236
- 259799 string characters out of 2890433
- 564209 words of memory out of 3000000
- 28854 multiletter control sequences out of 15000+200000
- 535088 words of font info for 29 fonts, out of 3000000 for 9000
+ 13416 strings out of 480236
+ 276376 string characters out of 2890433
+ 725228 words of memory out of 3000000
+ 29770 multiletter control sequences out of 15000+200000
+ 535396 words of font info for 30 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 108i,7n,110p,409b,912s stack positions out of 5000i,500n,10000p,200000b,50000s
-<C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb>
-Output written on iter3.pdf (1 page, 23772 bytes).
+ 108i,7n,110p,450b,788s stack positions out of 5000i,500n,10000p,200000b,50000s
+<C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb>
+Output written on naive.pdf (1 page, 47494 bytes).
 PDF statistics:
- 25 PDF objects out of 1000 (max. 8388607)
+ 29 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  49 words of extra memory for PDF output out of 10000 (max. 10000000)
 
