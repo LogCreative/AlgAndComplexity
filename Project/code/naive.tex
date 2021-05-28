@@ -6,7 +6,8 @@
 \tikzstyle{task} = [circle,draw=red!50!black!50,top color=white];
 \node at (-1.5,0) {DC1};
 \node[dc,text width=2.0cm] (DC1) at (-0.5,0) {};
-\node[task] at (0,0) {};
+\node[task,bottom color=black!15.0] at (0,0) {tF6};
+\node[task,bottom color=black!15.0,opacity=0.3] (tF6) at (6,0) {tF6};
 \node[task] at (1,0) {};
 \node at (-1.5,-1.5) {DC2};
 \node[dc,text width=1.0cm] (DC2) at (-0.5,-1.5) {};
@@ -72,12 +73,11 @@
 \node[dc,text width=4.0cm] (DC12) at (-0.5,-16.5) {};
 \node[task,bottom color=black!10.0] at (0,-16.5) {tF4};
 \node[task,bottom color=black!10.0,opacity=0.3] (tF4) at (6,-16.5) {tF4};
-\node[task,bottom color=black!15.0] at (1,-16.5) {tF6};
-\node[task,bottom color=black!15.0,opacity=0.3] (tF6) at (7,-16.5) {tF6};
-\node[task,bottom color=black!20.0] at (2,-16.5) {tF8};
-\node[task,bottom color=black!20.0,opacity=0.3] (tF8) at (8,-16.5) {tF8};
-\node[task,bottom color=black!25.0] at (3,-16.5) {tF9};
-\node[task,bottom color=black!25.0,opacity=0.3] (tF9) at (9,-16.5) {tF9};
+\node[task,bottom color=black!20.0] at (1,-16.5) {tF8};
+\node[task,bottom color=black!20.0,opacity=0.3] (tF8) at (7,-16.5) {tF8};
+\node[task,bottom color=black!25.0] at (2,-16.5) {tF9};
+\node[task,bottom color=black!25.0,opacity=0.3] (tF9) at (8,-16.5) {tF9};
+\node[task] at (3,-16.5) {};
 \node at (-1.5,-18.0) {DC13};
 \node[dc,text width=4.0cm] (DC13) at (-0.5,-18.0) {};
 \node[task,bottom color=black!10.0] at (0,-18.0) {tF2};
@@ -107,10 +107,10 @@
 \draw[red!9.0!green,line width=0.4166666666666667pt] (tF1) edge[->,bend right] (tF4);
 \draw[red!11.25!green,line width=0.3333333333333333pt] (tF2) edge[->,bend right] (tF5);
 \draw[red!78.75000000000001!green,line width=0.07142857142857142pt] (tF3) edge[->,bend right] (tF5);
-\draw[red!3.375!green,line width=1.0pt] (tF4) edge[->,bend right] (tF6);
+\draw[red!8.1!green,line width=0.4166666666666667pt] (tF4) edge[->,bend right] (tF6);
 \draw[red!11.25!green,line width=1.0pt] (tF5) edge[->,bend right] (tF7);
 \draw[red!90.0!green,line width=0.20833333333333334pt] (tF5) edge[->,bend right] (tF8);
-\draw[red!1.875!green,line width=1.0pt] (tF6) edge[->,bend right] (tF8);
+\draw[red!4.5!green,line width=0.4166666666666667pt] (tF6) edge[->,bend right] (tF8);
 \draw[red!36.0!green,line width=0.20833333333333334pt] (tF7) edge[->,bend right] (tF9);
 \draw[red!7.5!green,line width=1.0pt] (tF8) edge[->,bend right] (tF9);
 \end{tikzpicture}
