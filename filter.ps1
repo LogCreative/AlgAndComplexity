@@ -8,5 +8,5 @@ Get-ChildItem . '*.tex' -Force -Recurse | ForEach-Object -Process {
 }
 
 Get-ChildItem .\ -recurse *-ZilongLi* | ForEach-Object {
-    Rename-Item $_.FullName$_.FullName.Replace("-ZilongLi","")
+    Rename-Item $_.FullName$_.FullName.Replace("-********","")
 }
