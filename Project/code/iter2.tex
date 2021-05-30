@@ -1,10 +1,13 @@
+\documentclass[tikz]{standalone}
+\usetikzlibrary {positioning,shapes.misc}\begin{document}
 \begin{tikzpicture}[scale=0.5, every node/.style={scale=0.5}]
 
 \tikzstyle{dc} = [rounded rectangle,right,draw=gray,yshift=-0.5cm];
 \tikzstyle{task} = [circle,draw=red!50!black!50,top color=white];
+\tikzstyle{dp}=[draw,opacity=0.3]
 \node at (-1.5,0) {DC1};
 \node[dc,text width=2.0cm] (DC1) at (-0.5,0) {};
-\node[task] at (0,0) {};
+\node[task,bottom color=black!15.0] at (0,0) {tF6};
 \node[task] at (1,0) {};
 \node[font=\bfseries] at (-1.5,-1.5) {DC2};
 \node[dc,text width=1.0cm] (DC2) at (-0.5,-1.5) {};
@@ -21,17 +24,22 @@
 \node[font=\bfseries] at (-1.5,-6.0) {DC5};
 \node[dc,text width=1.0cm] (DC5) at (-0.5,-6.0) {};
 \node[task,bottom color=black!15.0] at (0,-6.0) {tF5};
-\node[font=\bfseries] at (-1.5,-7.5) {DC6};
+\node at (-1.5,-7.5) {DC6};
 \node[dc,text width=5.0cm] (DC6) at (-0.5,-7.5) {};
 \node[task,bottom color=black!10.0] at (0,-7.5) {tC2};
 \node[task,bottom color=black!15.0] at (1,-7.5) {tE4};
-\node[task,bottom color=black!10.0] at (2,-7.5) {tF4};
-\node[task,bottom color=black!20.0] at (3,-7.5) {tF7};
-\node[task,bottom color=black!20.0] at (4,-7.5) {tF8};
+\node[task,bottom color=black!5.0] at (2,-7.5) {tD1};
+\node[task,bottom color=black!5.0] at (3,-7.5) {tD2};
+\node[task,bottom color=black!10.0] at (4,-7.5) {tD3};
+\node[task,bottom color=black!10.0] at (5,-7.5) {tD4};
+\node[task,bottom color=black!15.0] at (6,-7.5) {tD5};
+\node[task,bottom color=black!10.0] at (7,-7.5) {tF2};
+\node[task,bottom color=black!20.0] at (8,-7.5) {tF7};
+\node[task,bottom color=black!20.0] at (9,-7.5) {tF8};
 \node[font=\bfseries] at (-1.5,-9.0) {DC7};
 \node[dc,text width=2.0cm] (DC7) at (-0.5,-9.0) {};
-\node[task,bottom color=black!10.0] at (0,-9.0) {tF2};
-\node[task,bottom color=black!10.0] at (1,-9.0) {tF3};
+\node[task,bottom color=black!10.0] at (0,-9.0) {tF3};
+\node[task] at (1,-9.0) {};
 \node at (-1.5,-10.5) {DC8};
 \node[dc,text width=2.0cm] (DC8) at (-0.5,-10.5) {};
 \node[task,bottom color=black!5.0] at (0,-10.5) {tE1};
@@ -49,16 +57,15 @@
 \node[task,bottom color=black!20.0] at (1,-15.0) {tE6};
 \node at (-1.5,-16.5) {DC12};
 \node[dc,text width=4.0cm] (DC12) at (-0.5,-16.5) {};
-\node[task,bottom color=black!25.0] at (0,-16.5) {tF9};
-\node[task] at (1,-16.5) {};
+\node[task,bottom color=black!10.0] at (0,-16.5) {tF4};
+\node[task,bottom color=black!25.0] at (1,-16.5) {tF9};
 \node[task] at (2,-16.5) {};
 \node[task] at (3,-16.5) {};
 \node at (-1.5,-18.0) {DC13};
 \node[dc,text width=4.0cm] (DC13) at (-0.5,-18.0) {};
-\node[task,bottom color=black!15.0] at (0,-18.0) {tF6};
-\node[task,bottom color=black!5.0] at (1,-18.0) {tD1};
-\node[task,bottom color=black!5.0] at (2,-18.0) {tD2};
-\node[task,bottom color=black!10.0] at (3,-18.0) {tD3};
-\node[task,bottom color=black!10.0] at (4,-18.0) {tD4};
-\node[task,bottom color=black!15.0] at (5,-18.0) {tD5};
+\node[task] at (0,-18.0) {};
+\node[task] at (1,-18.0) {};
+\node[task] at (2,-18.0) {};
+\node[task] at (3,-18.0) {};
 \end{tikzpicture}
+\end{document}
