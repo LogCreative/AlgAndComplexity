@@ -2,3 +2,9 @@ Examples/
 ref/
 .texpadtmp/
 review/review.pdf
+_minted*
+*.log
+*.aux
+*.synctex.gz
+*.zip
+Lab*.out
