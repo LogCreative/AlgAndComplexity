@@ -36,7 +36,7 @@
 \frametitle{Notation}
 \begin{table}[h]
     \centering\scriptsize
-    \caption{Symbel Table of Variables for Scheduling Jobs Problem}\label{tab:variables}
+    \caption{Symbol Table of Variables for Scheduling Jobs Problem}\label{tab:variables}
     \begin{tabular}{c|l}
     \hline
          Variable & Meaning\\
@@ -267,18 +267,18 @@ since the task in every stage could be non-continuous, it is just a representati
 \begin{algorithm}[H]
     \caption{Iterative Max-Min Fairness Algorithm}
     Initialize Optimize Model with basic constraints \eqref{eq:one}, (\ref{eq:t1} -- \ref{eq:tend}), (\ref{eq:jobm1} -- \ref{eq:jobm2})\;
-    \texttt{ConstrSlot} $\leftarrow$ []\;
+    \texttt{ConstrDC} $\leftarrow$ []\;
     \Repeat{
         original Constraint \eqref{eq:slot} is satisfied
     }{
-    \ForEach{\emph{slot}}{
-        \uIf{\emph{slot}$\in$\texttt{ConstrSlot}}{
-        add constraint on mono \emph{slot} similar to Constraint \eqref{eq:slot}\;
+    \ForEach{\emph{DC}}{
+        \uIf{\emph{DC}$\in$\texttt{ConstrSlot}}{
+        add constraint on mono \emph{DC} similar to Constraint \eqref{eq:slot}\;
         }
         \lElse{
-        fix the allocated task on \emph{slot}}
+        fix the allocated task slot on \emph{DC}}
         Optimize Model\;
-        append the overflow slots to \texttt{ConstrSlot}\;
+        append the overflow DC to \texttt{ConstrDC}\;
         }
     }
 \end{algorithm}
