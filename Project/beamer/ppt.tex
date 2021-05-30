@@ -1,0 +1,273 @@
+\documentclass[aspectratio=169]{beamer}
+
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usetikzlibrary {positioning,shapes.misc}
+\usepackage[ruled,linesnumbered,boxed]{algorithm2e}
+\usepackage{float}
+
+\def\input#1{\fbox{#1}} % draft mode
+
+\usecolortheme{beaver}
+\title{Stage-Based Strategy for Scheduling Jobs Problem with Max-Min Fairness}
+\subtitle{Project for Algorithm and Complexity }
+\author{Taoran Han, Longxuan Wei, Zilong Li}
+\institute{Department of Computer Science, \\ Shanghai Jiao Tong University, Shanghai, China}
+\begin{document}
+\maketitle
+
+\AtBeginPart{\frame{\partpage}\frame{\tableofcontents}}
+
+% Part 1: Design
+\part{Algorithm Design}
+\section{Introduction}
+\begin{frame}
+\frametitle{Introduction} % 幻灯片标题
+% With the rapid growth on the scale of data clusters, there are more and more data online in different Geo-Distributed Data Centers. And the amount of data is so big that it is a emerging demand to schedule data within the bandwidth across data centers and take advantage of data locality at the same time. Moreover, the workload of computational resources requires to be distributed as fair as possible, in order to balance the cost in different areas.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\textwidth]{img/network.png}
+    \caption{Data centers and its connection in Azure global network\cite{azure}}
+    \label{fig:azure}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\frametitle{Notation}
+\begin{table}[h]
+    \centering\scriptsize
+    \caption{Symbel Table of Variables for Scheduling Jobs Problem}\label{tab:variables}
+    \begin{tabular}{c|l}
+    \hline
+         Variable & Meaning\\
+    \hline
+        $K$ & The number of jobs\\
+        $m$ & The number of data centers\\
+        $t_k$ & The number of tasks of job $k$\\
+        $s_i$ & The number of slots of center $i$\\
+        $e_{k,i}$ & The execution time of task $i$ of job $k$\\
+        $b_{i,j}$ & The bandwidth from center $i$ to center $j$\\
+        $d_{k,i}^j$ & The amount of data that task $i$ of job $k$ requires from center $j$\\
+        $T_{i,j}^k$ & The amount of data that task $j$ of job $k$ requires from task $i$ of job $k$\\
+        $q_k$ & The number of stages of job$k$\\
+        $p_i^k$ & The number of tasks of stage $i$ of job $k$\\
+        $x_{k,i}^j$ & Whether task $i$ of job $k$ is allocated to center $j$\\
+        $c_{k,i}$ & The completion time of task $i$ of job $k$\\
+        $C_k$ & The completion time of job $k$\\
+        $ACT$ & The average completion time of all jobs\\
+    \hline
+    \end{tabular}
+\end{table}
+\end{frame}
+
+\begin{frame}
+    
+\end{frame}
+
+
+% Part 2: NPC
+\part{NP-Completeness}
+\section{Proof method}
+\begin{frame}[allowframebreaks=0.8]
+\frametitle{proof}
+    The problem is to schedule all the tasks in the DAG to a number of worker nodes --- while minimizing the average time of the job.
+    
+    To prove this, we need to reduce in to a similar and known NPC problem, which is the 3-SAT problem. Because that the max-min fairness is a condition which is to optimize the result after finding out a result. And this does not affect the judgment of NPC, so it is not mentioned in the process of proof.
+\end{frame}
+
+
+% Part 3: Algorithm
+\part{Algorithm \& Test}
+\section{Algorithm \& Complexity}
+
+\begin{frame}[allowframebreaks=0.8]
+\frametitle{Floyd-Warshall on Bandwidth}
+    We can calculate the corresponding bandwidth between every two data centers. Considering that the data transferring path need to be optimal (the data could be transferred indirectly), we will use the Floyd-Warshall's Algorithm. 
+    
+    This assumption could be justified by the fact that we could construct a \empty{transfer} task without the need for any computing resources to pass the data from the previous transfer. Because data could transfer on every link, the data could also been transferred indirectly in this way.
+    
+    \begin{figure}
+        \centering
+        \input{img/indirect}
+        \caption{Indirect transfer through a \emph{transfer} task}
+        \label{fig:my_label}
+    \end{figure}
+    
+    The reciprocal of the bandwidth is the transfer time through this line. And the bandwidth could be calculated reversely after the process of Floyd-Warshall.
+    
+    \begin{equation*}
+        \frac{1}{b_{i,j}}\rightarrow \textbf{\fbox{Floyd-Warshall}} \rightarrow \frac{1}{b^\prime_{i,j}}
+    \end{equation*}
+    
+    The Floyd-Warshall's Algorithm on the bandwidth matrix costs $O(m^3)$, where $m$ is the number of data centers.
+\end{frame}
+
+\begin{frame}
+\frametitle{DAG Stage Seperation}
+
+\begin{algorithm}[H]
+\caption{DAG Stage Separation}
+\KwIn{Request Matrix $D$}
+\KwOut{Stage Separation for every job}
+Reduce $D$ to $D^\prime$ with task items only\;
+Turn $D^\prime$ into adjacency list $G$ on positive element\;
+Get topological order of $G$ by recording to \textsc{PRE} of Depth-First Search\;
+Run Breadth-First Search on $G$ in topological order to get the stage level, updating the level in a top-down method\;
+Group task by (job, level)\;
+\end{algorithm}
+The algorithm is efficient on sparse graph with the use of adjacency list, with the total running time of $O(|V|^2+|E|)$. In this case, $|E|=\Theta(|V|)$, thus $O(|V|^2)$ is the time complexity in this stage, where $|V|=\# tasks=\sum_{k=1}^K\sum_{i=1}^{t_k}1$ is the number of all tasks.
+\end{frame}
+
+\begin{frame}[allowframebreaks=0.8]
+\frametitle{Improvement on \texttt{max}}
+It is discovered that using built-in function \texttt{max} in CPLEX is \emph{slow}. We turned the max function into inequalities. 
+
+\begin{align}
+    c_{k,i} &\geq t_{k,i} + e_{k,i} \label{eq:t1}\\
+    c_{k,i} &\geq t_{k,i}^\prime + e_{k,i} \label{eq:t2}\\
+    t_{k,i} &\geq \sum_{j_1=1}^m \frac{x_{k,i}^{j_1}\times d_{k,i}^{j_2}}{b_{j_2,j_1}},&& \forall 1\leq j_2\leq m\\
+    t_{k,i}^\prime &\geq \sum_{j_1=1}^m\sum_{j_2=1}^m \frac{x_{k,i}^{j_1}\times x_{k,j_3}^{j_2}\times T_{j_3,i}^k}{b_{j_2,j_1}} + e_{k,i},&& \forall 1\leq j_3\leq t_k\label{eq:tend}
+\end{align}
+
+It is obvious that to optimze the average cost, $c_{k,i}$ is required to touch the tightest bound in Constraints \eqref{eq:t1} and \eqref{eq:t2}, which satisfies the original equality of \eqref{eq:taske}.
+
+Assume that $c^\prime_{k,s}$ is the cost of stage $s$ in job $k$, then it is the longest cost among all tasks in this stage. And Equation \eqref{eq:stage} is turned into
+\begin{align}
+    C_k &= \sum_{s=1}^{q_k} c^{\prime}_{k,s} \label{eq:jobm1}\\
+    c^\prime_{k,s} &\geq c_{k,i},\quad \forall i: 1+\sum_{l=1}^{s-1} p_{l}^k \leq i \leq \sum_{l=1}^{s} p_{l}^k \label{eq:jobm2}
+\end{align}
+since the task in every stage could be non-continuous, it is just a representation to show that it is the maximum elapsed time in every stage.
+\end{frame}
+
+\begin{frame}
+\frametitle{Iterative Max-Min Fairness}
+
+\begin{algorithm}[H]
+    \caption{Iterative Max-Min Fairness Algorithm}
+    Initialize Optimize Model with basic constraints \eqref{eq:one}, (\ref{eq:t1} -- \ref{eq:tend}), (\ref{eq:jobm1} -- \ref{eq:jobm2})\;
+    \texttt{ConstrSlot} $\leftarrow$ []\;
+    \Repeat{
+        original Constraint \eqref{eq:slot} is satisfied
+    }{
+    \ForEach{\emph{slot}}{
+        \eIf{\emph{slot}$\in$\texttt{ConstrSlot}}{
+        add constraint on mono \emph{slot} similar to Constraint \eqref{eq:slot}\;
+        }
+        {
+        fix the allocated task on \emph{slot}. }
+        Optimize Model\;
+        append the overflow slots to \texttt{ConstrSlot}\;
+        }
+    }
+\end{algorithm}
+\end{frame}
+
+\begin{frame}
+    As a result, the total time complexity of our algorithm is:
+\begin{equation*}
+    O(m^3)+O(n)+O(mT)
+\end{equation*}
+where $n=\#tasks$. Our algorithm performs less than 10s on Toy Data.
+\end{frame}
+
+\section{Test on Toy Data}
+
+\begin{frame}
+\frametitle{Toy Data (without max-min)}
+    \begin{figure}[h]
+    \centering
+    \input{img/naivedisplay.tex}
+    \caption{Toy Data Allocation without max-min} % will be replaced by max-min version, program generated graph.
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\frametitle{Toy Data (max-min iteration)}
+    \begin{figure}[h]
+        \centering
+        \begin{actionenv}<1->
+            \input{img/iter0display}
+        \end{actionenv}
+        \begin{actionenv}<2->
+            \input{img/iter1display}
+        \end{actionenv}
+        \begin{actionenv}<3->
+            \input{img/iter2display}
+        \end{actionenv}
+        \begin{actionenv}<4->
+            \input{img/iter3display}
+        \end{actionenv}
+        \begin{actionenv}<5->
+            \input{img/iter4display}
+        \end{actionenv}
+        \caption{Iteration on Max-min Fairness}
+    \end{figure}
+\end{frame}
+
+\begin{frame}
+\frametitle{Toy Data Result}
+    \begin{figure}
+        \centering
+        \input{img/avgdisplay.tex}
+        \caption{Average Time}
+    \end{figure}
+    The test on Toy Data indicates an average time of \textbf{10.301s} among all jobs, while maintaining max-min fairness of computing resources. The workload among all data centers are balanced.
+\end{frame}
+
+\section{Test on Real World Data}
+
+\begin{frame}
+\frametitle{Real World Data}
+    Real world should satisfy that the total number of slots is larger than or equal to the total number of tasks, which means that $\sum_{i=1}^m s_i\geq \sum_{i=1}^K t_i$. In order to meet the requirement of this problem, we generate a certain amount of data sets according to certain constraints to test and check our algorithm. In our test sets, all of the data are generated by random numbers.
+    
+    For bandwidth, because it takes almost no time to transfer data in the same data center, its bandwidth is set to be much larger than other bandwidth values.
+\end{frame}
+
+\begin{frame}
+\frametitle{Real World (without max-min)}
+    \begin{figure}
+        \centering
+        \input{img/real}
+        \caption{Real World Allocation without max-min}
+    \end{figure}
+\end{frame}
+
+\begin{frame}
+\frametitle{Real World (max-min iteration)}
+    \begin{figure}[h]
+        \centering
+        \begin{actionenv}<1->
+            \input{img/iter0r}
+        \end{actionenv}
+        \begin{actionenv}<2->
+            \input{img/iter1r}
+        \end{actionenv}
+        \caption{Iteration on Max-min Fairness}
+    \end{figure}
+\end{frame}
+
+\begin{frame}
+\frametitle{Real World (max-min iteration)}
+    \begin{figure}[h]
+        \centering
+        \begin{actionenv}<1->
+            \input{img/iter2r}
+        \end{actionenv}
+        \begin{actionenv}<2->
+            \input{img/iter3r}
+        \end{actionenv}
+        \begin{actionenv}<3->
+            \input{img/iter4r}
+        \end{actionenv}
+        \caption{Iteration on Max-min Fairness}
+    \end{figure}
+\end{frame}
+
+\begin{frame}
+\frametitle{Running Time}
+The running time is 15s, which indicates that our algorithm is efficient enough. While the algorithm without max-min is 10min.
+\end{frame}
+
+% 我认为可以到这里结束了，代码演示一下
+
+\end{document}

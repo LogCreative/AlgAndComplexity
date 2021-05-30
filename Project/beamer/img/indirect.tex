@@ -1,0 +1,9 @@
+\begin{tikzpicture}[node distance=1cm]
+\tikzstyle{dc} = [rounded rectangle,draw=gray,text centered,text width=1cm];
+\node[dc] (v1) at (-1,0.5) {DC1};
+\node[dc] (v2) at (2,0.5) {DC2};
+\node [dc] (v3) at (5,0.5) {DC3};
+\node[circle,radius=1cm,draw,dashed] (v4) at (2,1) {};
+\draw  (v1) edge[->,bend left] (v4);
+\draw  (v4) edge[->,bend left] (v3);
+\end{tikzpicture}

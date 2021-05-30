@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.10) (preloaded format=pdflatex 2020.10.17)  28 MAY 2021 16:37
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.10) (preloaded format=pdflatex 2020.10.17)  29 MAY 2021 20:42
 entering extended mode
 **./naive.tex
 (naive.tex
@@ -301,15 +301,15 @@ Missing character: There is no ; in font nullfont!
 
 {C:/Users/lizil/AppData/Local/MiKTeX/pdftex/config/pdftex.map}] (naive.aux) ) 
 Here is how much of TeX's memory you used:
- 13416 strings out of 480236
- 276376 string characters out of 2890433
- 725228 words of memory out of 3000000
- 29770 multiletter control sequences out of 15000+200000
+ 13420 strings out of 480236
+ 276445 string characters out of 2890433
+ 726838 words of memory out of 3000000
+ 29774 multiletter control sequences out of 15000+200000
  535396 words of font info for 30 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  108i,7n,110p,450b,788s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb>
-Output written on naive.pdf (1 page, 47494 bytes).
+Output written on naive.pdf (1 page, 47452 bytes).
 PDF statistics:
  29 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
