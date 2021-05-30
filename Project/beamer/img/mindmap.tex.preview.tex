@@ -1,0 +1,44 @@
+%& C:\Users\lizil\AppData\Roaming\TikzEdt\TikzEdt\023~1.0\TEMP_H~1
+\begin{document}
+\usetikzlibrary{mindmap}
+% !TIKZEDT BOUNDINGBOX = -3 -3 8 5
+\begin{tikzpicture}[mindmap,concept color=blue!70]
+\node [concept] {\color{white} Stage-Based Strategy for Scheduling Jobs Problem with Max-Min Fairness}
+child[concept color=orange,grow=150] {
+	node[concept] {Algorithm Design}
+	child[concept,grow=140] {node[concept] {Simple Example}}
+	child[concept,grow=180] {node[concept] {Stage Based}}
+	child[concept,grow=220] {node[concept] {Max-Min Fairness}}
+	}
+child[concept color=orange,grow=210] {
+	node[concept] {NP-Completeness}
+	child[concept,grow=160] {node[concept] {3-SAT}}
+	child[concept,grow=200] {node[concept] {Reduction}}
+	}
+child[concept color=red,grow=0] {
+	node[concept] {Algorithm \& Test}
+	child[concept,grow=40] {node[concept] {Floyd-Warshall}}
+	child[concept,grow=0] {node[concept] {Without Max-min}}
+	child[concept,grow=-40] {node[concept] {Max-min Iteration}}
+	};
+
+\usetikzlibrary{calc}
+\pgftransformreset
+\node[inner sep=0pt,outer sep=0pt,minimum size=0pt,line width=0pt,text width=0pt,text height=0pt] at (current bounding box) {};
+%add border to avoid cropping by pdflibnet
+\foreach \border in {0.1}
+  \useasboundingbox (current bounding box.south west)+(-\border,-\border) rectangle (current bounding box.north east)+(\border,\border);
+\newwrite\metadatafile
+\immediate\openout\metadatafile=\jobname_BB.txt
+\path
+  let
+    \p1=(current bounding box.south west),
+    \p2=(current bounding box.north east)
+  in
+  node[inner sep=0pt,outer sep=0pt,minimum size=0pt,line width=0pt,text width=0pt,text height=0pt,draw=white] at (current bounding box) {
+\immediate\write\metadatafile{\p1,\p2}
+};
+\immediate\closeout\metadatafile
+\end{tikzpicture}
+
+\end{document}

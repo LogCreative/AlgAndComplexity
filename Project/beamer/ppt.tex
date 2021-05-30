@@ -1,22 +1,22 @@
-\documentclass[aspectratio=169]{beamer}
+% \documentclass[aspectratio=169]{beamer}
 
-\usepackage{tikz}
-\usepackage{pgfplots}
-\usetikzlibrary {positioning,shapes.misc}
-\usepackage[ruled,linesnumbered,boxed]{algorithm2e}
-\usepackage{float}
+% \usepackage{tikz}
+% \usepackage{pgfplots}
+% \usetikzlibrary {positioning,shapes.misc}
+% \usepackage[ruled,linesnumbered,boxed]{algorithm2e}
+% \usepackage{float}
 
-\def\input#1{\fbox{#1}} % draft mode
+% \def\input#1{\fbox{#1}} % draft mode
 
-\usecolortheme{beaver}
-\title{Stage-Based Strategy for Scheduling Jobs Problem with Max-Min Fairness}
-\subtitle{Project for Algorithm and Complexity }
-\author{Taoran Han, Longxuan Wei, Zilong Li}
-\institute{Department of Computer Science, \\ Shanghai Jiao Tong University, Shanghai, China}
-\begin{document}
+% \usecolortheme{beaver}
+% \title{Stage-Based Strategy for Scheduling Jobs Problem with Max-Min Fairness}
+% \subtitle{Project for Algorithm and Complexity }
+% \author{Taoran Han, Longxuan Wei, Zilong Li}
+% \institute{Department of Computer Science, \\ Shanghai Jiao Tong University, Shanghai, China}
+% \begin{document}
 \maketitle
 
-\AtBeginPart{\frame{\partpage}\frame{\tableofcontents}}
+% \AtBeginPart{\frame{\partpage}\frame{\tableofcontents}}
 
 % Part 1: Design
 \part{Algorithm Design}
@@ -26,7 +26,7 @@
 % With the rapid growth on the scale of data clusters, there are more and more data online in different Geo-Distributed Data Centers. And the amount of data is so big that it is a emerging demand to schedule data within the bandwidth across data centers and take advantage of data locality at the same time. Moreover, the workload of computational resources requires to be distributed as fair as possible, in order to balance the cost in different areas.
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.9\textwidth]{img/network.png}
+    \includegraphics[height=0.6\textheight]{img/network.png}
     \caption{Data centers and its connection in Azure global network\cite{azure}}
     \label{fig:azure}
 \end{figure}
@@ -61,26 +61,68 @@
 \end{frame}
 
 \begin{frame}
-    
+    \frametitle{Framework}
+    \begin{figure}
+        \centering
+        \input{img/mindmap.tex}
+        \caption{Framework of this project}
+    \end{figure}
 \end{frame}
 
+\section{Constraints}
 
-% Part 2: NPC
-\part{NP-Completeness}
-\section{Proof method}
-\begin{frame}[allowframebreaks=0.8]
-\frametitle{proof}
-    The problem is to schedule all the tasks in the DAG to a number of worker nodes --- while minimizing the average time of the job.
-    
-    To prove this, we need to reduce in to a similar and known NPC problem, which is the 3-SAT problem. Because that the max-min fairness is a condition which is to optimize the result after finding out a result. And this does not affect the judgment of NPC, so it is not mentioned in the process of proof.
+\begin{frame}
+\frametitle{Initial Constraints}
+    We need to restrict that each task can only be allocated to exactly one center. And for every center, the number of its allocated tasks can not exceed the number of its slots. With these two constraints, we will then calculate the completion time.
+\begin{align}
+    \sum_{j=1}^m x_{k,i}^j=1,\forall i\leq t_i,\forall k\leq K \label{eq:one}\\
+    \sum_{k=1}^K\sum_{i=1}^{t_k} x_{k,i}^j\leq s_j,\forall j\leq m \label{eq:slot}\\
+    c_{k,i}=\max\limits_{1\leq j_2\leq m}\sum_{j_1=1}^m\frac{x_{k,i}^{j_1}\times d_{k,i}^{j_2}}{b_{j_2,j_1}}+e_{k,i} \label{eq:i3}\\
+    ACT=\frac{\sum_{k=1}^K C_k}K \label{eq:iend}
+\end{align}
+
 \end{frame}
 
+\begin{frame}
+\frametitle{A Simple Example}
+\begin{figure}[h]
+    \centering
+    \includegraphics[height=0.6\textheight]{img/simpleexample.png}
+    \caption{The simple example}
+    \label{fig:simple}
+\end{figure}
+\end{frame}
 
-% Part 3: Algorithm
-\part{Algorithm \& Test}
-\section{Algorithm \& Complexity}
+\begin{frame}
+\frametitle{A Simple Example}
+\begin{figure}[h]
+    \centering
+    \includegraphics[height=0.4\textheight]{img/exampleresult.png}
+    \caption{Result of the simple example}
+    \label{fig:result}
+\end{figure}
+    \end{frame}
 
-\begin{frame}[allowframebreaks=0.8]
+\begin{frame}
+\frametitle{More Constraints for Stages}
+\begin{figure}[h]
+    \centering
+    \includegraphics[height=0.5\textheight]{img/samplegraph.png}
+    \caption{A sample of a job with different stages}
+    \label{fig:sample}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\frametitle{More Constraints for Stages}
+    The completion time of a job is the summation of all stages. Moreover, we need to consider the transmission between tasks of the same job.
+\begin{align}
+    C_k=\max(c_{k,1},\cdots,c_{k,p_1^k})+\max(c_{k,p_1^k+1},\cdots,c_{k,p_1^k+p_2^k})+\cdots+\max(c_{k,t_k-p_{q_k}^k+1},\cdots,c_{k,t_k}) \label{eq:stage}\\
+    c_{k,i}=\max\left(\max\limits_{1\leq j_2\leq m}\sum_{j_1=1}^m\frac{x_{k,i}^{j_1}\times d_{k,i}^{j_2}}{b_{j_2,j_1}}+e_{k,i},\max\limits_{1\leq j_3\leq t_k}\sum_{j_1=1}^m\sum_{j_2=1}^m\frac{x_{k,i}^{j_1}\times x_{k,j_3}^{j_2}\times T_{j_3,i}^k}{b_{j_2,j_1}}+e_{k,i}\right) \label{eq:taske}
+\end{align}
+\end{frame}
+
+\begin{frame}[allowframebreaks]
 \frametitle{Floyd-Warshall on Bandwidth}
     We can calculate the corresponding bandwidth between every two data centers. Considering that the data transferring path need to be optimal (the data could be transferred indirectly), we will use the Floyd-Warshall's Algorithm. 
     
@@ -98,13 +140,93 @@
     \begin{equation*}
         \frac{1}{b_{i,j}}\rightarrow \textbf{\fbox{Floyd-Warshall}} \rightarrow \frac{1}{b^\prime_{i,j}}
     \end{equation*}
+
+\end{frame}
+\section{Max-Min Fairness}
+
+\begin{frame}
+\frametitle{Max-Min Fairness}
+    Initial request: Minimize average completion time.
     
-    The Floyd-Warshall's Algorithm on the bandwidth matrix costs $O(m^3)$, where $m$ is the number of data centers.
+    View overflowing centers as smaller-size glasses. View centers with empty slots as larger-size glasses. Pour overflowing beer into glasses with capacity.
+    
+    Loop the procedure again and again until there are no overflowing glasses.
+    
+    \begin{figure}
+        \centering
+        \includegraphics{img/beer.jpg}
+        \caption{Max-min Example on Beer}
+    \end{figure}
+\end{frame}
+
+% Part 2: NPC
+\part{NP-Completeness}
+\section{Construction}
+\begin{frame}
+% \frametitle{Proof}
+\frametitle{\textsc{3-SAT}}
+    The problem is to schedule all the tasks in the DAG to a number of worker nodes --- while minimizing the average time of the job.
+    
+    To prove this, we need to reduce into a similar and known NPC problem, which is the 3-SAT problem. Because that the max-min fairness is a condition which is to optimize the result after finding out a result. And this does not affect the judgment of NPC, so it is not mentioned in the process of proof.
+
+    \begin{definition}[3-Satisfiability --- \textsc{3-SAT}]
+    Given a set of $\{x_i\}$, $1 \leq i \leq m$, and a collection of sets $D_1,\ldots,D_n$, where $m \leq 3n$, such that each $D_i$ consists of exactly three of the elements $x_i$ or $\overline x_i$.
+    \end{definition}
+\end{frame}
+
+\begin{frame}[allowframebreaks=0.8]
+\frametitle{Construction}
+     Given an instance of \textsc{3-SAT}, we can construct the following instance of this problem. The tasks we shall denote:\\
+        $x_{ij}$ and $\overline x_{ij}$ for $1 \leq i \leq m$ and $0 \leq j \leq m$;\\
+        $y_i$ and $\overline y_i$ for $1 \leq i \leq m$;\\
+        $D_{ij}$ for $1 \leq i \leq n$ and $1 \leq j \leq n$;
+    
+     Given a set $S$ of all $n$ tasks which can be put into different DAG's, a limit $k$, a relation $<$ on $S$ which can be determined from the DAG's directed edges. Our goal is to find a function $f$ from $S$ to $\{0,1,\ldots,t-1\}$ to make sure that the average cost will be minimum.
+     \framebreak
+     
+    The relation < is given by:
+    \begin{enumerate}[(i)]
+    \item $x_{ij} < \overline x_{i,j+1}$ and $\overline x_{ij} < \overline x_{i,j+1}$, for $1 \leq i \leq m$ and $0 \leq j < m$;
+    \item $x_{i,i-1} < y_i$ and $\overline x_{i,i-1} < \overline y_i$ for $1 \leq i \leq m$;
+    \item Considering $D_{ij}$, where $a_1 a_2 a_3$ is the binary representation of $j$.(Note that the case $a_1 = a_2 = a_3$ = 0 can't occur.) Let $D_i$ consist of literals $z_{k_1},z_{k_2},z_{k_3}$, where each $z$ independently stands for $x$ or $\overline x$, in a fixed order. then for $1 \leq p \leq 3$, if $a_p = 1$, we have $\overline z_{k_p,m} < D_{ij}$, where $\overline z$ stands for $\overline x$ or $x$.
+    \end{enumerate}
+
+\end{frame}
+
+\section{Reduction}
+\begin{frame}[allowframebreaks]
+\frametitle{Reduction}
+We will show that the above instance has a solution if and only if the given instance of \textsc{3-SAT} does. 
+\begin{equation*}
+    \text{\textsc{3-SAT}} \leq_P \text{\textsc{DAG Job Scheduling}}
+\end{equation*}
+where \textsc{3-SAT} is a NP-Complete problem, so is \textsc{DAG Job Scheduling}.
+ \framebreak
+ 
+We imagine that $x_i$ or $\overline x_i$ to be true if and only if $x_{i0}$ or $\overline x_{i0}$ is executed at time 0. We know that the presence of the $y$'s and $\overline y$'s forces exactly one of $x_{i0}$ and $\overline x_{i0}$ to be executed at time 1. Then the requirement that $n+m+1$ jobs be executed at time $m+1$ is tantamount to the requirement that for each $i$, there is one $j$ such that $D_{ij}$ may be executed at that time. But this condition is equivalent to saying that the sum of items which $D_i$ represents has value true when those of the $x_i$'s and $\overline x_i$'s which were executed at time 0 are given the value true.
+\framebreak
+
+We may conclude that in any solution to this instance, exactly one of $x_{i0}$ and $\overline x_{i0}$ is executed at time 0. Moreover, we can determine the exact jobs which are executed at each time, given which of $x_{i0}$ and $\overline x_{i0}$ is executed at time 0. At time t we must execute $z_{it}$ if $z_{i0}$ was executed at time 0 and $z_{i,t-1}$ if not. Moreover, we must execute $y_t$ at time $t$ if $x_{t0}$ was executed at time 0 and execute $y_{t-1}$ at time $t$ if $x_{t0}$ was executed at time 1.
+\framebreak
+
+At time m + 1 we can execute the m remaining $x$'s and $\overline x$'s and the one remaining $y$ or $\overline y$. Since $c_{m+1}=m+n+1$, we must be able to execute n of the $D$'s if we are to have a solution. We observe that for each pair $D_{i,j}$ and $D_{i,j'}$, $j \neq j'$, there is at least one $k$ such that $x_{km}$ precedes $D_{ij}$ and $\overline x_{km}$ precedes $D_{ij'}$, or vice versa. Since we have already proven that exactly one of $x_{km}$ and $\overline x_{km}$, can be executed by time m, it follows that for each i, at most one of $D_{i1},\ldots,D_{i7}$ can be executed at time m + 1.
+\framebreak
+
+Moreover, if we assign the truth value true to $x_k$ if and only if $x_{k0}$ was executed at time 0, then there will be one of $D_{i1},\ldots,D_{i7}$ executable at time m + 1 if and only if $D_i$ takes the value true under this assignment of values to the variables. We conclude that a solution to the instance  exists if and only if the original product of sums is satisfiable.
+    
+\end{frame}
+
+
+% Part 3: Algorithm
+\part{Algorithm \& Test}
+\section{Algorithm \& Complexity}
+
+\begin{frame}
+ The Floyd-Warshall's Algorithm on the bandwidth matrix costs $O(m^3)$, where $m$ is the number of data centers.
 \end{frame}
 
 \begin{frame}
 \frametitle{DAG Stage Seperation}
-
 \begin{algorithm}[H]
 \caption{DAG Stage Separation}
 \KwIn{Request Matrix $D$}
@@ -118,7 +240,7 @@ Group task by (job, level)\;
 The algorithm is efficient on sparse graph with the use of adjacency list, with the total running time of $O(|V|^2+|E|)$. In this case, $|E|=\Theta(|V|)$, thus $O(|V|^2)$ is the time complexity in this stage, where $|V|=\# tasks=\sum_{k=1}^K\sum_{i=1}^{t_k}1$ is the number of all tasks.
 \end{frame}
 
-\begin{frame}[allowframebreaks=0.8]
+\begin{frame}[allowframebreaks]
 \frametitle{Improvement on \texttt{max}}
 It is discovered that using built-in function \texttt{max} in CPLEX is \emph{slow}. We turned the max function into inequalities. 
 
@@ -150,11 +272,11 @@ since the task in every stage could be non-continuous, it is just a representati
         original Constraint \eqref{eq:slot} is satisfied
     }{
     \ForEach{\emph{slot}}{
-        \eIf{\emph{slot}$\in$\texttt{ConstrSlot}}{
+        \uIf{\emph{slot}$\in$\texttt{ConstrSlot}}{
         add constraint on mono \emph{slot} similar to Constraint \eqref{eq:slot}\;
         }
-        {
-        fix the allocated task on \emph{slot}. }
+        \lElse{
+        fix the allocated task on \emph{slot}}
         Optimize Model\;
         append the overflow slots to \texttt{ConstrSlot}\;
         }
@@ -266,8 +388,10 @@ where $n=\#tasks$. Our algorithm performs less than 10s on Toy Data.
 \begin{frame}
 \frametitle{Running Time}
 The running time is 15s, which indicates that our algorithm is efficient enough. While the algorithm without max-min is 10min.
+
+The less restrictions/variables will reduce the time complexity after each iteration, since the restrictions on slot will not exceed the naive version and the variable on task will get fixed if it is in the available data center.
 \end{frame}
 
 % 我认为可以到这里结束了，代码演示一下
 
-\end{document}
+% \end{document}
