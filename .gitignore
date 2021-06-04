@@ -8,3 +8,4 @@ _minted*
 *.synctex.gz
 *.zip
 Lab*.out
+*preview.pdf
