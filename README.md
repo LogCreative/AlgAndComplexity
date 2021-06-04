@@ -7,7 +7,7 @@
 1. [**Lab00**](Lab00/Lab00.pdf) 使用了 `tikzmark` 在文档中标记箭头。
 2. [**Lab01**](Lab01/Lab01.pdf) `minted` 代码高亮包的使用（不太稳定），使用 [PGFPlotsEdt](https://logcreative.github.io/PGFPlotsEdt/?lang=cn) 绘制原生统计图。![](Lab01/complexityClass.jpg)
 3. [**Lab02**](Lab02/Lab02.pdf) [递归树](Lab02/img/Fig-RecurrenceTree.tex)的原生绘制。![](Lab02/img/Fig-RecurrenceTree.jpg)
-4. [**Lab03**](Lab03/Lab03.pdf) [重叠圈](Lab03/img/twoover.tex)的原生绘制。![](lab03/img/twoover.jpg) 
+4. [**Lab03**](Lab03/Lab03.pdf) [重叠圈](Lab03/img/twoover.tex)的原生绘制。![](Lab03/img/twoover.jpg) 
 5. [**Lab04**](Lab04/Lab04.pdf) 表格上色。
 6. [**Lab05**](Lab05/Lab05.pdf) 使用 `foreach` 生成[遍历图](Lab05/img/tc.tex)。![](Lab05/img/tc.jpg) ![](Lab05/img/OTW.tex.preview.jpg) ![](Lab05/img/OTWW.tex.preview.jpg)
 7. [**Lab06**](Lab06/Lab06.pdf) 使用 `input` 指令关联文本文件输出结果。
