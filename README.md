@@ -2,7 +2,7 @@
 
 算法与复杂性 Lab 和 Project
 
-课程结果差强人意，但不论如何，从这门课上进阶了 LaTeX，也算是一些收获吧。该门课程提供了这样的机会。
+课程结果差强人意，但不论如何，从这门课上进阶了 LaTeX，也算是一些收获吧。感谢该门课程提供了这样的机会。
 
 1. [**Lab00**](Lab00/Lab00.pdf) 使用了 `tikzmark` 在文档中标记箭头。
 2. [**Lab01**](Lab01/Lab01.pdf) `minted` 代码高亮包的使用（不太稳定），使用 [PGFPlotsEdt](https://logcreative.github.io/PGFPlotsEdt/?lang=cn) 绘制原生统计图。![](Lab01/complexityClass.jpg)
