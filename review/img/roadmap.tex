@@ -1,0 +1,33 @@
+\begin{tikzpicture}
+\tikzstyle{center} = [fill=green!50!black];
+\tikzstyle{side} = [fill=green!50!black];
+\tikzstyle{infl} = [->,bend left,line width=2pt,green!50!black!80];
+\tikzstyle{sidec} = [green!50!black];
+\node [center] (v1) at (0.5,0.5) {};
+\node [side] (v3) at (1,2) {};
+\node [side] (v2) at (3,-0.5) {};
+\node [side] (v6) at (1.5,-2.5) {};
+\node [side] (v5) at (-1.5,-0.5) {};
+\node [side] (v4) at (-1.5,1.5) {};
+\draw [infl] (v1) edge (v2);
+\draw [infl] (v1) edge (v3);
+\draw [infl] (v1) edge (v4);
+\draw [infl] (v1) edge (v5);
+\draw [infl] (v1) edge (v6);
+\node [font=\sffamily,green!50!black] at (2,1) {\LaTeX{} on Alg Class};
+\node [sidec] at (1.5,-3) {OS};
+
+\node [sidec] at (4.5,-0.5) {ComputerArch};
+\node [sidec] at (1.5,2.5) {CompilerPrinciple};
+\node [sidec] at (-2,2) {Org};
+\node [sidec] at (-3,-0.5) {ProblemSolving};
+
+\node at (0.5,-4.5) {\LARGE ALL IN \LaTeX{}};
+\node [fill=red!50!yellow!50] (v7) at (-2,-2.5) {};
+\node [fill=red!50!yellow!50] (v8) at (-0.5,-2) {};
+\node [fill=red!50!yellow!50] (v9) at (0.5,-1) {};
+\draw [infl,red!50!yellow!50] plot[smooth, tension=.7] coordinates {(v7) (v8) (v9) (v1)};
+\node [sidec,red!50!yellow!80] at (-2.5,-2) {MCM};
+\node [sidec,red!50!yellow!80] at (-1,-1.6) {CUMCM};
+\node [sidec,red!50!yellow!80] at (-0.25,-1) {MCM};
+\end{tikzpicture}
